@@ -68,9 +68,9 @@ st.write("""Some experiment types have an atypical SDRF structure e.g. metaprote
 If you want to add to this effort, please contact us via the button in the sidebar.
 """)
 
-immunopeptidomics = st.button('Immunopeptidomics')
 metaproteomics = st.button('Metaproteomics')
 single_cell = st.button('Single cell proteomics')
+immunopeptidomics = st.button('Immunopeptidomics')
 
 meta_proteomics_cols = ["characteristics[environmental material]", "characteristics[organism]", "characteristics[diet]", "characteristics[biome]", "characteristics[environmental condition]"]
 for button, suggested_cols in zip([metaproteomics], [meta_proteomics_cols]):
