@@ -67,10 +67,10 @@ if "unimod" not in st.session_state:
 st.markdown("""
     <style>
         #sdrsdf { font-size: inherit; }
-        sub, sup { font-size: 0.6em; }
+        sub, sup { font-size: 0.8em; }
     </style>
     <div id="sdrsdf">
-        <h1>Welcome to SDR<sub>e</sub>F<sub>fortless</sub></h1>
+        <h1>SDR<sub>e</sub>F<sub>fortless</sub></h1>
     </div>
 """, unsafe_allow_html=True)
 st.markdown("# lesSDRF")
