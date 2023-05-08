@@ -34,8 +34,8 @@ st.set_page_config(
     layout="wide",
     page_icon="🧪",
     menu_items={
-        "Get help": "https://github.com/TineClaeys/SDRF_GUI",
-        "Report a bug": "https://github.com/TineClaeys/SDRF_GUI",
+        "Get help": "https://github.com/compomics/SDRF_application/issues",
+        "Report a bug": "https://github.com/compomics/SDRF_application/issues",
     },
 )
 
@@ -46,7 +46,7 @@ def update_session_state(df):
 st.title("""5. Experiment types""")
 st.subheader(":construction: *Under development* :construction:")
 
-url = "https://github.com/TineClaeys/SDRF_GUI/issues"
+url = "https://github.com/compomics/SDRF_application/issues"
 button = f'<a href="{url}" style="{button_styles}" id="mybutton" onclick="document.getElementById(\'mybutton\').style.cssText = \'{clicked_styles}\'" target="_blank">Join the community effort</a>'
 with st.sidebar:
     st.write(button, unsafe_allow_html=True)

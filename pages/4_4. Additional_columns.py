@@ -11,8 +11,8 @@ st.set_page_config(
     layout="wide",
     page_icon="🧪",
     menu_items={
-        "Get help": "https://github.com/TineClaeys/SDRF_GUI",
-        "Report a bug": "https://github.com/TineClaeys/SDRF_GUI",
+        "Get help": "https://github.com/compomics/SDRF_application/issues",
+        "Report a bug": "https://github.com/compomics/SDRF_application/issues",
     },
 )
 
