@@ -75,6 +75,19 @@ st.markdown("""
 """, unsafe_allow_html=True)
 st.markdown("# lesSDRF")
 st.markdown("# SDRF-effortless")
+st.markdown("# SDR(e)ffortless")
+st.markdown("""
+    <style>
+        #sdrsdf { font-size: inherit; }
+        sub, sup { font-size: 0.9em; }
+    </style>
+    <div id="sdrsdf">
+        <h1>SDR<sup>e</sup>F<sup>fortless</sup></h1>
+    </div>
+""", unsafe_allow_html=True)
+st.markdown("# effortlesSDRF")
+
+
 st.markdown(
     """The Sample and Data Relationship Format (SDRF) is a crucial tool for maximizing the potential impact of your data. 
     By making metadata available and machine-readable, other researchers can study your data more easily."""
