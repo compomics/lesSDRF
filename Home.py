@@ -70,7 +70,7 @@ st.markdown("""
         sub, sup { font-size: 0.6em; }
     </style>
     <div id="sdrsdf">
-        <h1>Welcom to SDR<sub>e</sub>F<sub>fortless</sub></h1>
+        <h1>Welcome to SDR<sub>e</sub>F<sub>fortless</sub></h1>
     </div>
 """, unsafe_allow_html=True)
 st.markdown(
