@@ -63,14 +63,14 @@ if "unimod" not in st.session_state:
     st.session_state["unimod"] = unimod
 
 
-st.title("Welcome to the SDRF annotation tool")
+#st.title("Welcome to the SDRF annotation tool")
 st.markdown("""
     <style>
         #sdrsdf { font-size: inherit; }
         sub, sup { font-size: 0.6em; }
     </style>
     <div id="sdrsdf">
-        <h1>SDR<sub>e</sub>F<sub>fortless</sub></h1>
+        <h1>Welcom to SDR<sub>e</sub>F<sub>fortless</sub></h1>
     </div>
 """, unsafe_allow_html=True)
 st.markdown(
