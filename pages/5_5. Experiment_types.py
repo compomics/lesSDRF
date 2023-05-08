@@ -30,9 +30,9 @@ clicked_styles = f"""
     color: white;
 """
 st.set_page_config(
-    page_title="SDRF creation tool",
+    page_title="Experiment types",
     layout="wide",
-    page_icon="🧪",
+    page_icon=":construction:",
     menu_items={
         "Get help": "https://github.com/compomics/SDRF_application/issues",
         "Report a bug": "https://github.com/compomics/SDRF_application/issues",

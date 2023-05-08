@@ -7,7 +7,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 st.set_page_config(
-    page_title="SDRF creation tool",
+    page_title="Additional columns",
     layout="wide",
     page_icon="🧪",
     menu_items={

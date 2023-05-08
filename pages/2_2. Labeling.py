@@ -10,7 +10,7 @@ from streamlit_tree_select import tree_select
 from collections import defaultdict
 
 st.set_page_config(
-    page_title="SDRF annotation tool",
+    page_title="Labeling",
     layout="wide",
     page_icon="🧪",
     menu_items={

@@ -6,8 +6,9 @@ import ParsingModule
 import warnings
 warnings.filterwarnings("ignore")
 
+    
 st.set_page_config(
-    page_title="SDRF annotation tool",
+    page_title="Map local metadata",
     layout="wide",
     page_icon="🧪",
     menu_items={
@@ -15,7 +16,6 @@ st.set_page_config(
         "Report a bug": "https://github.com/compomics/SDRF_application/issues",
     },
 )
-
 st.title("1. Map local metadata to SDRF")
 st.markdown(
     """If you have a local metadata file available, you can use this file to map the data to the required SDRF information. """

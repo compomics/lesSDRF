@@ -11,7 +11,7 @@ import os
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode
 from streamlit_tree_select import tree_select
 st.set_page_config(
-    page_title="SDRF creation tool",
+    page_title="Required columns",
     layout="wide",
     page_icon="🧪",
     menu_items={
