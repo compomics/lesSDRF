@@ -75,7 +75,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 st.markdown("# lesSDRF")
 st.markdown("# SDRF-effortless")
-st.markdown("# SDR(e)ffortless")
+st.markdown("# SDR(e)Ffortless")
 st.markdown("""
     <style>
         #sdrsdf { font-size: inherit; }
