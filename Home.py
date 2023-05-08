@@ -64,7 +64,15 @@ if "unimod" not in st.session_state:
 
 
 st.title("Welcome to the SDRF annotation tool")
-st.markdown("# SDR<sub>e</sub>F<sub>fortless<sub>", unsafe_allow_html=True)
+st.markdown("""
+    <style>
+        #sdrsdf { font-size: inherit; }
+        sub, sup { font-size: 0.6em; }
+    </style>
+    <div id="sdrsdf">
+        <h1>SDR<sub>e</sub>F<sub>fortless</sub></h1>
+    </div>
+""", unsafe_allow_html=True)
 st.markdown(
     """The Sample and Data Relationship Format (SDRF) is a crucial tool for maximizing the potential impact of your data. 
     By making metadata available and machine-readable, other researchers can study your data more easily."""
