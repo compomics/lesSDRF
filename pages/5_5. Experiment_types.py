@@ -45,7 +45,11 @@ def update_session_state(df):
 
 st.title("""5. Experiment types""")
 st.subheader(":construction: *Under development* :construction:")
-
+st.write(""" :rotating_light:
+This application is currently in development and the current page is not yet finalized. We are in touch with several members of the involved communities, 
+but we have not yet decided on a strict template. 
+If you would like to be a part of this discussion, please use the button in the sidebar to get involved.
+""")
 url = "https://github.com/compomics/SDRF_application/issues"
 button = f'<a href="{url}" style="{button_styles}" id="mybutton" onclick="document.getElementById(\'mybutton\').style.cssText = \'{clicked_styles}\'" target="_blank">Join the community effort</a>'
 with st.sidebar:
@@ -64,9 +68,7 @@ else:
 data_dict = st.session_state["data_dict"]
 unimod = st.session_state["unimod"]
 
-st.write("""Some experiment types have an atypical SDRF structure e.g. metaproteomics, immunopeptidomics, single cell, etc. Here you can find the community-suggested SDRF columns for such experiments. 
-If you want to add to this effort, please contact us via the button in the sidebar.
-""")
+st.write("""Some experiment types have an atypical SDRF structure. Here you can find the community-suggested SDRF columns for such experiments.""")
 
 metaproteomics = st.button('Metaproteomics')
 single_cell = st.button('Single cell proteomics')
