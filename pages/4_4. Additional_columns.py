@@ -402,7 +402,6 @@ if selection == "comment[fraction identifier]":
                 st.write(f"Selection contains: {all}")
 
         if x:
-            st.write(x)
             df = ParsingModule.fill_in_from_list(template_df, "comment[fractionation method]", all)
             df = ParsingModule.fill_in_from_list(template_df, "comment[fraction identifier]", [*range(1, number_of_fractions + 1)])
             update_session_state(df)
