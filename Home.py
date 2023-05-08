@@ -95,7 +95,8 @@ if upload_df is not None:
         st.session_state["template_df"] = template_df
 
 st.markdown("""In need of some inspiration? Download this example SDRF file to get an idea of the required output""")
-st.download_button("Download example SDRF", data=f'{local_dir}/example_SDRF.tsv', file_name="example.sdrf.tsv")
+example_file = f'{local_dir}/example_SDRF.tsv'
+st.download_button("Download example SDRF", data=example_file, file_name="example.sdrf.tsv")
 
 
 st.header("If you're starting from scratch, start here")
