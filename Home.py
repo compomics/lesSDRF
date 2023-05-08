@@ -69,12 +69,14 @@ st.markdown(
     By making metadata available and machine-readable, other researchers can study your data more easily."""
 )
 st.markdown(
-    """ This tool will help you to annotate your data with the correct metadata in several steps for a maximum of 500 samples.  
-- Step 1: select a default SDRF file to start from based on the species of your sample  
-- Step 2: if you have a local metadata file, you can upload it to map to the SDRF file 
-- Step 3: add labelling information  
-- Step 4: fill in required and additional columns using an ontology-based input system  \n
-For atypical experiment types, you can check community suggested columns in *5. Experiment types*.
+    """ This tool will help you to annotate your data with the correct metadata in several steps for a maximum of 500 samples.
+    First, on this homepage, you will need to select a default SDRF file based on the species of your sample and provide the raw file names. 
+    Then you can follow the steps in the sidebar.  
+- Step 1: If you have a local metadata file, you can upload it to map to the SDRF file
+- Step 2: Provide information on potential labels in your sample
+- Step 3: Fill in the columns that are required for a valid SDRF
+- Step 4: Fill in columns with additional information to further optimise your SDRF file  
+- Step 5: For atypical experiment types, you can check community suggested columns \n
 """
 )
 

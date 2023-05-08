@@ -80,18 +80,6 @@ button_styles = f"""
     margin: 4px 2px;
     cursor: pointer;
 """
-
-
-
-st.set_page_config(
-    page_title="SDRF annotation tool",
-    layout="wide",
-    page_icon="🧪",
-    menu_items={
-        "Get help": "https://github.com/TineClaeys/SDRF_GUI",
-        "Report a bug": "https://github.com/TineClaeys/SDRF_GUI",
-    },
-)
 st.title("""3. Required columns""")
 # if template_df is not in the session state, don't run all the code below
 if "template_df" not in st.session_state:
