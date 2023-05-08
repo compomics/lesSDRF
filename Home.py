@@ -65,8 +65,8 @@ if "unimod" not in st.session_state:
 
 st.title("Welcome to the SDRF annotation tool")
 st.markdown(
-    """The Sample and Data Relationship Format will allow your data to reach its full potential.  
-By having all the metadata available and machine readable, your data will be able to reach its full impact by being studied by other researchers. """
+    """The Sample and Data Relationship Format (SDRF) is a crucial tool for maximizing the potential impact of your data. 
+    By making metadata available and machine-readable, other researchers can study your data more easily."""
 )
 st.markdown(
     """ This tool will help you to annotate your data with the correct metadata in several steps for a maximum of 500 samples.  
