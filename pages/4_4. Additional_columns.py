@@ -5,6 +5,8 @@ import numpy as np
 import re
 import warnings
 warnings.filterwarnings("ignore")
+from streamlit_tree_select import tree_select
+
 
 st.set_page_config(
     page_title="Additional columns",
