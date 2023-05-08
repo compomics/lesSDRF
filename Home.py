@@ -69,7 +69,7 @@ st.markdown(
     By making metadata available and machine-readable, other researchers can study your data more easily."""
 )
 st.markdown(
-    """ This tool will help you to annotate your data with the correct metadata in several steps for a maximum of 500 samples.
+    """ This tool will help you to annotate your data with the correct metadata in several steps for a maximum of 250 samples.
     First, on this homepage, you will need to select a default SDRF file based on the species of your sample and provide the raw file names. 
     Then you can follow the steps in the sidebar.  
 - Step 1: If you have a local metadata file, you can upload it to map to the SDRF file
@@ -84,12 +84,12 @@ st.markdown("""You are able to download the intermediate file at any given timep
 If this is the case right now, please upload your intermediate SDRF file here:""")
 
 upload_df = st.file_uploader(
-    "Upload intermediate SDRF file", type=["tsv"], accept_multiple_files=False, help='Upload a previously saved SDRF file. It should be in tsv format and should not contain more than 500 samples'
+    "Upload intermediate SDRF file", type=["tsv"], accept_multiple_files=False, help='Upload a previously saved SDRF file. It should be in tsv format and should not contain more than 250 samples'
 )
 if upload_df is not None:
     template_df = pd.read_csv(upload_df, sep='\t')
-    if template_df.shape[0]>500:
-        st.error('Too many samples, please upload a maximum of 500 samples')
+    if template_df.shape[0]>250:
+        st.error('Too many samples, please upload a maximum of 250 samples')
     else:
         st.write(template_df)
         st.session_state["template_df"] = template_df
@@ -119,13 +119,13 @@ if selected_species != "":
 
     # Ask user to upload filenames of their samples
     filenames = []
-    uploaded_names = st.text_input("Input raw file names as a comma separated list", help="The raw file names will be input in the comment[data file] column and are the basis of your SDRF file. Input maximum 500 raw files")
+    uploaded_names = st.text_input("Input raw file names as a comma separated list", help="The raw file names will be input in the comment[data file] column and are the basis of your SDRF file. Input maximum 250 raw files")
     if uploaded_names is not None:
         uploaded_names = re.sub(" ", "", uploaded_names)
         uploaded_names = uploaded_names.split(",")
         filenames.append(uploaded_names)
-    if len(filenames[0]) > 500:
-        st.error('Too many samples, please upload a maximum of 500 samples')
+    if len(filenames[0]) > 250:
+        st.error('Too many samples, please upload a maximum of 250 samples')
     else:
         st.write(f"Added filenames: {filenames[0]}")
         ## Store filenames in the dataframe
