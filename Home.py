@@ -74,6 +74,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 st.markdown("# lesSDRF")
+st.markdown("# SDRF-effortless")
 st.markdown(
     """The Sample and Data Relationship Format (SDRF) is a crucial tool for maximizing the potential impact of your data. 
     By making metadata available and machine-readable, other researchers can study your data more easily."""
