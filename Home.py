@@ -100,8 +100,7 @@ with open(f'{local_dir}/example_SDRF.tsv', 'rb') as f:
     st.download_button("Download example SDRF", f, file_name="example.sdrf.tsv")
 
 
-st.header("If you're starting from scratch, start here")
-st.subheader("Select your species")
+st.subheader("Start here with a completely new SDRF file")
 species = ["","human", "cell-line", "default", "nonvertebrates", "plants", "vertebrates"]
 selected_species = st.selectbox("""Select a species for the SDRF template which will contain the basic colummns to fill in for this specific species. 
 If your species is not in the drop down list, you can always use the default template.""", 
