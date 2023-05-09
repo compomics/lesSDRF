@@ -74,18 +74,24 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 st.markdown("# lesSDRF")
-st.markdown("# SDRF-effortless")
-st.markdown("# SDR(e)Ffortless")
 st.markdown("""
     <style>
         #sdrsdf { font-size: inherit; }
         sub, sup { font-size: 0.9em; }
     </style>
     <div id="sdrsdf">
-        <h1>SDR<sup>e</sup>F<sup>fortless</sup></h1>
+        <h1><sub>less</sub>SDRF</h1>
     </div>
 """, unsafe_allow_html=True)
-st.markdown("# effortlesSDRF")
+st.markdown("""
+    <style>
+        #sdrsdf { font-size: inherit; }
+        sub, sup { font-size: 0.9em; }
+    </style>
+    <div id="sdrsdf">
+        <h1><sub>les</sub>SDRF</h1>
+    </div>
+""", unsafe_allow_html=True)
 
 
 st.markdown(
