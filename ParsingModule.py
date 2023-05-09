@@ -336,10 +336,19 @@ def check_df_for_ontology_terms(df, columns_to_check, column_ontology_dict):
                 st.success(f'Column {i} has been cleared')
 
 def check_age_format(df, column):
+    """
+    Check if the data in a column in a pandas dataframe follows the age formatting of Y M D.
+
+    Parameters:
+    df (pandas.DataFrame): The pandas dataframe to check.
+    column (str): The name of the column to check.
+
+    Returns:
+    bool: True if all data in the column follows the age formatting of Y M D, False otherwise.
+    """
     for index, row in df.iterrows():
-        if (row[column] != "") and (row[column] != "empty") and (row[column] != "None"):
-            st.write(row[column])
-            if not re.match(r"^\d+Y\s\d+M\s\d+D$", row[column]):
+       if (row[column] not in ["", "empty", "None", "Not available"]):
+            if not re.match(r"^\d+Y?(\s\d+M)?(\s\d+D)?$", row[column]):
                 return False
     return True
 

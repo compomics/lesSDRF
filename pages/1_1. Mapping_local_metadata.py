@@ -98,6 +98,7 @@ if metadata_sheet is not None:
         "comment[depletion]",
     ]
     value_columns=["source name", "assay name", "comment[data file]","comment[fraction identifier]","comment[technical replicate]"]
+    other_columns = ["characteristics[sex]", "characteristics[age]"]
 
     # First narrow down the columns in the metadata file that are useful to match to the SDRF file
     sel, subm = st.columns(2)
@@ -141,13 +142,32 @@ if metadata_sheet is not None:
                         input_values = [ i for i in input_values if i is not np.nan]
                         name = (matched_col.split('[')[-1].split(']')[0]).replace(' ', '_')
                         name = 'all_' + name + '_elements'
-                        if (matched_col not in value_columns) and name not in data_dict:
-                            with col4: 
-                                st.error("This column does not contain ontology terms. Please fill it in using the next steps in the sidebar")
                         if matched_col in value_columns:
                                 with col4:
                                     st.success('Great! The local metadata values are valid terms and are mapped to the SDRF file.', icon="✅")
                                 template_df[matched_col] = metadata_df[selected_col]
+                        elif matched_col in other_columns:
+                            if matched_col == "characteristics[age]":
+                                with col4:
+                                    if ParsingModule.check_age_format(template_df, "characteristics[age]") == False:
+                                        st.error("The age column is not in the correct format, please check and try again")
+                                    elif ParsingModule.check_age_format(template_df, "characteristics[age]") == True:
+                                        st.success('Great! The local metadata values are valid terms and are mapped to the SDRF file.', icon="✅")
+                                        template_df[matched_col] = metadata_df[selected_col] 
+                            if matched_col == "characteristics[sex]":
+                                #check if input_values only contains M, F or NA and no other strings or numbers
+                                if all(x in ['M', 'F', 'NA'] for x in input_values):
+                                    with col4:
+                                        st.success('Great! The local metadata values are valid terms and are mapped to the SDRF file.', icon="✅")
+                                    template_df[matched_col] = metadata_df[selected_col] 
+                                else:
+                                    with col4:
+                                        st.error("The sex column is not in the correct format. It should indiciate M, F or NA, please check and try again")
+
+                        elif (matched_col not in value_columns) and name not in data_dict:
+                            with col4: 
+                                st.error("This column does not contain ontology-based terms so this column cannot be matched. Please fill it in using the next steps in the sidebar")
+
                         else:
                             onto_elements = data_dict[name]
                             if matched_col == "characteristics[organism]":

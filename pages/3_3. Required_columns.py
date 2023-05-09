@@ -23,15 +23,6 @@ st.set_page_config(
 def update_session_state(df):
     st.session_state["template_df"] = df
 
-# the check age format checks if the column contains data in YMD format
-def check_age_format(df, column):
-    for index, row in df.iterrows():
-        if (row[column] != "") and (row[column] != "empty") and (row[column] != "None") and (row[column] != "Not available"):
-            st.write(row[column])
-            if not re.match(r"^\d+Y\s\d+M\s\d+D$", row[column]):
-                return False
-    return True
-
 @st.cache_data
 def load_organism_data():
     #find dir one up from current dir
@@ -163,20 +154,20 @@ if selection == "characteristics[age]":
     multiple = st.selectbox(f"Are there multiple ages in your data?", ("","No", "Yes", "Not available"), help="If you select Not available, the column will be filled in with 'Not available'")
     if multiple == "Yes":
         template_df = ParsingModule.fill_in_from_list(template_df, "characteristics[age]")
-        if check_age_format(template_df, "characteristics[age]") == False:
+        if ParsingModule.check_age_format(template_df, "characteristics[age]") == False:
             st.error("The age column is not in the correct format, please check and try again")
             st.stop()
-        elif check_age_format(template_df, "characteristics[age]") == True:
+        elif ParsingModule.check_age_format(template_df, "characteristics[age]") == True:
             st.success("The age column is in the correct format")
             update_session_state(template_df)
             st.experimental_rerun()
     if multiple == "No":
         age = st.text_input("Input the age of your sample in Y M D format e.g. 12Y 3M 4D", help="As you only have one age, the inputted age will be immediatly used to fill all cells in the age column")
         # check if the age is in Y M D format
-        if (age != "") and (not re.match(r"^\d+Y\s\d+M\s\d+D$", age)):
+        if (age != "") and (not re.match(r"^\d+Y?(\s\d+M)?(\s\d+D)?$", age)):
             st.error("The age is not in the correct format, please check and try again",icon="🚨")
             st.stop()
-        if (age != "") and (re.match(r"^\d+Y\s\d+M\s\d+D$", age)):
+        if (age != "") and (re.match(r"^\d+Y?(\s\d+M)?(\s\d+D)?$", age)):
             st.write("The age is in the correct format")
             template_df["characteristics[age]"] = age
             update_session_state(template_df)
