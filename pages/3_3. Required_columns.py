@@ -273,14 +273,12 @@ if selection == "comment[collision energy]":
         st.session_state["template_df"] = template_df
 
 if selection == "characteristics[developmental stage]":
-    st.subheader("Select the developmental stage of your sample")
+    st.subheader("Input the developmental stage of your sample")
     all_devstage = data_dict["all_developmental_stage_elements"]
     devstage_nodes = data_dict["developmental_stage_nodes"]
-    df = ParsingModule.multiple_ontology_tree(
-        selection, all_devstage, all_devstage, template_df
-    )
+    df = ParsingModule.multiple_ontology_tree(selection, all_devstage, devstage_nodes, template_df, multiple_in_one=False)
     update_session_state(df)
-
+    
 if selection == "characteristics[disease]":
     st.subheader("If you have healthy and control samples, indicate healthy samples using *normal*. Input the disease for the other samples using the ontology")
     all_disease_type = data_dict["all_disease_elements"]
