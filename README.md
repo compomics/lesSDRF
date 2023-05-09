@@ -1,6 +1,6 @@
-# SDRF_StreamlitApp
+# lesSDRF
 
-This github repository contains the code used to create the SDRF Streamlit application. 
+This github repository contains the code used to create lesSDRF, the SDRF Streamlit application. 
 
 The ontologies were downloaded in the format that was available and parsable.
 In obo format:

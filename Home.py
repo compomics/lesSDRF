@@ -63,38 +63,7 @@ if "unimod" not in st.session_state:
     st.session_state["unimod"] = unimod
 
 
-#st.title("Welcome to the SDRF annotation tool")
-st.markdown("""
-    <style>
-        #sdrsdf { font-size: inherit; }
-        sub, sup { font-size: 0.9em; }
-    </style>
-    <div id="sdrsdf">
-        <h1>SDR<sub>e</sub>F<sub>fortless</sub></h1>
-    </div>
-""", unsafe_allow_html=True)
-st.markdown("# lesSDRF")
-st.markdown("# lessSDRF")
-st.markdown("""
-    <style>
-        #sdrsdf { font-size: inherit; }
-        sub, sup { font-size: 0.9em; }
-    </style>
-    <div id="sdrsdf">
-        <h1><sub>less</sub>SDRF</h1>
-    </div>
-""", unsafe_allow_html=True)
-st.markdown("""
-    <style>
-        #sdrsdf { font-size: inherit; }
-        sub, sup { font-size: 0.9em; }
-    </style>
-    <div id="sdrsdf">
-        <h1><sub>les</sub>SDRF</h1>
-    </div>
-""", unsafe_allow_html=True)
-
-
+st.title("Welcome to lesSDRF, the SDRF annotation tool because less is more")
 st.markdown(
     """The Sample and Data Relationship Format (SDRF) is a crucial tool for maximizing the potential impact of your data. 
     By making metadata available and machine-readable, other researchers can study your data more easily."""
