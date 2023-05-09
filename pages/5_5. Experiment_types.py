@@ -42,9 +42,8 @@ st.set_page_config(
 
 def update_session_state(df):
     st.session_state["template_df"] = df
-
-st.title("""5. Experiment types""")
 st.subheader(":construction: *Under development* :construction:")
+st.title("""5. Experiment types""")
 st.write(""" :rotating_light:
 This application is currently in development and the current page is not yet finalized. We are in touch with several members of the involved communities, 
 but we have not yet decided on a strict template. 
