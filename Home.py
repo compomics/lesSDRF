@@ -63,7 +63,8 @@ if "unimod" not in st.session_state:
     st.session_state["unimod"] = unimod
 
 
-st.title("Welcome to lesSDRF, the SDRF annotation tool because less is more")
+st.title("Welcome to lesSDRF")
+st.subheader("The SDRF annotation tool, because less is more")
 st.markdown(
     """The Sample and Data Relationship Format (SDRF) is a crucial tool for maximizing the potential impact of your data. 
     By making metadata available and machine-readable, other researchers can study your data more easily."""
