@@ -683,7 +683,7 @@ if selection == "comment[modification parameters]":
 
     for i in mods_sel:
         st.write(f"**{i}**")
-        col1, col2, col3, col4, col5, col6  = st.columns(6)
+        col1, col2, col3 = st.columns(3)
 
 
         with col1:
@@ -696,15 +696,16 @@ if selection == "comment[modification parameters]":
             ta_sel = st.multiselect("Select the target amino acid", ta, key=f"ta_{i}")
 
         if i == "Other":
+            col4, col5, col6 = st.columns(3)
             with col4:
                 name = st.text_input(
-                    "Input a logical name for your custom modification"
+                    "Input a logical name"
                 )
             with col5:
-                form = st.text_input("Input the chemical formula of the modification")
+                form = st.text_input("Input the chemical formula")
             with col6:
-                mass = st.text_input("Input the mass of the modification")
-                
+                mass = st.text_input("Input the molecular mass")
+
             final_str = f"NT={name};MT={mt_sel};PP={pp_sel};TA={ta_sel};CF={form};MM={mass}"
             st.session_state["sdrf_mods"].append(final_str)
             st.write(
