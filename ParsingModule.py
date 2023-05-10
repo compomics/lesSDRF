@@ -348,7 +348,7 @@ def check_age_format(df, column):
     """
     for index, row in df.iterrows():
        if (row[column] not in ["", "empty", "None", "Not available"]):
-            if not re.match(r"^\d+Y?(\s\d+M)?(\s\d+D)?$", row[column]):
+            if not re.match(r"^\d+Y?(\s\d+M)?(\s\d+D)?$", str(row[column])):
                 return False
     return True
 

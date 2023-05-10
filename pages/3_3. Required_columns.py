@@ -683,40 +683,36 @@ if selection == "comment[modification parameters]":
 
     for i in mods_sel:
         st.write(f"**{i}**")
-        col1, col2, col3, col4 = st.columns(4)
+        col1, col2, col3, col4, col5, col5, col7 = st.columns(7)
+
+
+        with col1:
+            mt_sel = st.selectbox("Select the modification type", mt, key=f"mt_{i}")
+        with col2:
+            pp_sel = st.selectbox(
+                "Select the position of the modification", pp, key=f"pp_{i}"
+            )
+        with col3:
+            ta_sel = st.multiselect("Select the target amino acid", ta, key=f"ta_{i}")
 
         if i == "Other":
-            with col1:
+            with col4:
                 name = st.text_input(
                     "Input a logical name for your custom modification"
                 )
-            with col2:
+            with col5:
                 form = st.text_input("Input the chemical formula of the modification")
-            with col3:
+            with col6:
                 mass = st.text_input("Input the mass of the modification")
-            with col4:
-                final_str = f"NT={name};CF={form};MM={mass}"
+            with col7:
+                final_str = f"NT={name};MT={mt_sel};PP={pp_sel};TA={ta_sel};CF={form};MM={mass}"
+                st.session_state["sdrf_mods"].append(final_str)
                 st.write(
                     f""" **Final SDRF notation of modification:**  
                  {final_str}"""
                 )
-                done = st.button(
-                    "Okay",
-                    key=f"done_{i}",
-                    help="Click to add the modification to the SDRF file",
-                    on_click=st.session_state["sdrf_mods"].append(final_str),
-                )
-
         else:
-            with col1:
-                mt_sel = st.selectbox("Select the modification type", mt, key=f"mt_{i}")
-            with col2:
-                pp_sel = st.selectbox(
-                    "Select the position of the modification", pp, key=f"pp_{i}"
-                )
-            with col3:
-                ta_sel = st.multiselect("Select the target amino acid", ta, key=f"ta_{i}")
-            with col4:
+            with col7:
                 final_str = f"{unimod[i]};MT={mt_sel};PP={pp_sel};TA={ta_sel}"
                 st.session_state["sdrf_mods"].append(final_str)
                 st.write(

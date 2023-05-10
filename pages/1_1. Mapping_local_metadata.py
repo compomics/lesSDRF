@@ -204,5 +204,3 @@ if metadata_sheet is not None:
                 template_columns = [col for col in template_columns if col != matched_col]
                 selected_col = None
                 matched_col = None
-
-
