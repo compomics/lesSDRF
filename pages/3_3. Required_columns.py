@@ -683,7 +683,7 @@ if selection == "comment[modification parameters]":
 
     for i in mods_sel:
         st.write(f"**{i}**")
-        col1, col2, col3, col4, col5, col5, col7 = st.columns(7)
+        col1, col2, col3, col4, col5, col6  = st.columns(6)
 
 
         with col1:
@@ -704,21 +704,20 @@ if selection == "comment[modification parameters]":
                 form = st.text_input("Input the chemical formula of the modification")
             with col6:
                 mass = st.text_input("Input the mass of the modification")
-            with col7:
-                final_str = f"NT={name};MT={mt_sel};PP={pp_sel};TA={ta_sel};CF={form};MM={mass}"
-                st.session_state["sdrf_mods"].append(final_str)
-                st.write(
-                    f""" **Final SDRF notation of modification:**  
-                 {final_str}"""
-                )
+                
+            final_str = f"NT={name};MT={mt_sel};PP={pp_sel};TA={ta_sel};CF={form};MM={mass}"
+            st.session_state["sdrf_mods"].append(final_str)
+            st.write(
+                f""" **Final SDRF notation of modification:**  
+                {final_str}"""
+            )
         else:
-            with col7:
-                final_str = f"{unimod[i]};MT={mt_sel};PP={pp_sel};TA={ta_sel}"
-                st.session_state["sdrf_mods"].append(final_str)
-                st.write(
-                    f"""**Final SDRF notation of modification:**  
-                    {final_str}"""
-                )
+            final_str = f"{unimod[i]};MT={mt_sel};PP={pp_sel};TA={ta_sel}"
+            st.session_state["sdrf_mods"].append(final_str)
+            st.write(
+                f"""**Final SDRF notation of modification:**  
+                {final_str}"""
+            )
     st.write(f"Confirmed modifications contain: {st.session_state['sdrf_mods']}")
     submit = st.checkbox(
         "Submit modifications",
