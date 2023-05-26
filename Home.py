@@ -64,7 +64,7 @@ if "unimod" not in st.session_state:
 
 
 st.title("Welcome to lesSDRF")
-st.subheader("The SDRF annotation tool, because less is more")
+st.subheader("The SDRF annotation tool, because spending less time on SDRF creates more time for amazing research")
 st.markdown(
     """The Sample and Data Relationship Format (SDRF) is a crucial tool for maximizing the potential impact of your data. 
     By making metadata available and machine-readable, other researchers can study your data more easily."""
