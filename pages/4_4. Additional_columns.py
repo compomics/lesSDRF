@@ -26,7 +26,7 @@ def check_age_format(df, column):
     for index, row in df.iterrows():
         if (row[column] != "") and (row[column] != "empty") and (row[column] != "None"):
             st.write(row[column])
-            if not re.match(r"^\d+Y\s\d+M\s\d+D$", row[column]):
+            if not re.match(r"^\d*Y\s\d*M\s\d*D$", row[column]):
                 return False
     return True
 
@@ -153,10 +153,10 @@ if selection == "characteristics[age]":
     if multiple == "No":
         age = st.text_input("Input the age of your sample in Y M D format e.g. 12Y 3M 4D", help="As you only have one age, the inputted age will be immediatly used to fill all cells in the age column")
         # check if the age is in Y M D format
-        if (age != "") and (not re.match(r"^\d+Y\s\d+M\s\d+D$", age)):
+        if (age != "") and (not re.match(r"^\d*Y\s\d*M\s\d*D$", age)):
             st.error("The age is not in the correct format, please check and try again",icon="🚨")
             st.stop()
-        if (age != "") and (re.match(r"^\d+Y\s\d+M\s\d+D$", age)):
+        if (age != "") and (re.match(r"^\d*Y\s\d*M\s\d*D$", age)):
             st.write("The age is in the correct format")
             template_df["characteristics[age]"] = age
             update_session_state(template_df)
