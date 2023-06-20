@@ -739,7 +739,7 @@ if selection == "comment[modification parameters]":
     inputs.append("Other")
     inputs.remove("#NAAM?")
     mt = ["Fixed", "Variable", "Annotated"]
-    pp = ["Anwywhere", "Protein N-term", "Protein C-term", "Any N-term", "Any C-term"]
+    pp = ["Anywhere", "Protein N-term", "Protein C-term", "Any N-term", "Any C-term"]
     ta = ["X","G","A","L","M","F","W","K","Q","E","S","P","V","I","C","Y","H","R","N","D","T"]
     mods_sel = st.multiselect("Select the modifications present in your data", inputs)
     sdrf_mods = []
