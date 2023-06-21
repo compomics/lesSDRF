@@ -71,10 +71,14 @@ immunopeptidomics = st.button('Immunopeptidomics')
 
 meta_proteomics_cols = ["characteristics[environmental material]", "characteristics[organism]", "characteristics[diet]", "characteristics[biome]", "characteristics[environmental condition]"]
 for button, suggested_cols in zip([metaproteomics], [meta_proteomics_cols]):
-    if button and template_df:
+    if button:
+        if not template_df:
+            detected_cols = []
+        else:
+            #check which suggested cols are already in the template and which ones are not
+            detected_cols = [col for col in suggested_cols if col in template_df.columns]
         col1, col2 = st.columns(2)
-        #check which suggested cols are already in the template and which ones are not
-        detected_cols = [col for col in suggested_cols if col in template_df.columns]
+
         cols_to_add = [col for col in suggested_cols if col not in template_df.columns]
         for i in detected_cols:
             with col1:
