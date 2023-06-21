@@ -18,7 +18,7 @@ st.set_page_config(
         "Report a bug": "https://github.com/compomics/lesSDRF/issues",
     },
 )
-st.title("2. Labelling")
+st.title("2. Labeling")
 st.markdown(
     """If a raw file contains multiple labels, every label will need to be annotated on a different row. Here you can map label information to your raw files. 
     As a result, the raw file information will be duplicated with the correct label filled in"""

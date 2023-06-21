@@ -39,6 +39,15 @@ st.set_page_config(
     },
 )
 
+if "template_df" not in st.session_state:
+    st.error("Please fill in the template file in the Home page first", icon="🚨")  
+    st.stop()
+else:
+    template_df = st.session_state["template_df"] 
+    with st.container():
+        st.write("**This is your current SDRF file.**")
+        st.dataframe(template_df)
+
 
 def update_session_state(df):
     st.session_state["template_df"] = df
