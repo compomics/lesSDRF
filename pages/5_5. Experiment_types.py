@@ -40,7 +40,7 @@ st.set_page_config(
 )
 
 if "template_df" not in st.session_state:
-    st.error("Please fill in the template file in the Home page first", icon="🚨")  
+    st.warning("No SDRF file was detected. Go to the Home page to select your template.", icon="🚨")  
     st.stop()
 else:
     template_df = st.session_state["template_df"] 
@@ -72,7 +72,7 @@ immunopeptidomics = st.button('Immunopeptidomics')
 
 meta_proteomics_cols = ["characteristics[environmental material]", "characteristics[organism]", "characteristics[diet]", "characteristics[biome]", "characteristics[environmental condition]"]
 for button, suggested_cols in zip([metaproteomics], [meta_proteomics_cols]):
-    if button:
+    if button and template_df:
         col1, col2 = st.columns(2)
         #check which suggested cols are already in the template and which ones are not
         detected_cols = [col for col in suggested_cols if col in template_df.columns]
