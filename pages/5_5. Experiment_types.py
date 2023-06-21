@@ -54,18 +54,6 @@ button = f'<a href="{url}" style="{button_styles}" id="mybutton" onclick="docume
 with st.sidebar:
     st.write(button, unsafe_allow_html=True)
 
-# Get filled in template_df from other page
-# if template_df is not in the session state, don't run all the code below
-if "template_df" not in st.session_state:
-    st.error("Please fill in the template file in the Home page first", icon="🚨")  
-    st.stop()
-else:
-    template_df = st.session_state["template_df"] 
-    with st.container():
-        st.write("**This is your current SDRF file.**")
-        st.dataframe(template_df)
-data_dict = st.session_state["data_dict"]
-unimod = st.session_state["unimod"]
 
 st.write("""Some experiment types have an atypical SDRF structure. Here you can find the community-suggested SDRF columns for such experiments.""")
 
