@@ -40,8 +40,7 @@ st.set_page_config(
 )
 
 if "template_df" not in st.session_state:
-    st.warning("No SDRF file was detected. Go to the Home page to select your template.", icon="🚨")  
-    st.stop()
+    st.error("No SDRF file was detected. Go to the Home page to select your template.", icon="🚨")  
 else:
     template_df = st.session_state["template_df"] 
     with st.container():
