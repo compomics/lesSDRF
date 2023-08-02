@@ -338,7 +338,7 @@ def check_df_for_ontology_terms(df, columns_to_check, column_ontology_dict):
 def check_age_format(df, column):
     """
     Check if the data in a column in a pandas dataframe follows the age formatting of Y M D.
-
+    If a range, this should be formatted as e.g. 48Y-84Y.
     Parameters:
     df (pandas.DataFrame): The pandas dataframe to check.
     column (str): The name of the column to check.
@@ -348,13 +348,18 @@ def check_age_format(df, column):
     """
     for index, row in df.iterrows():
        if (row[column] not in ["", "empty", "None", "Not available"]):
-            if not re.match(r"^\d*Y\s\d*M\s\d*D$", str(row[column])):
-                return False
-    return True
+            if re.match(r"^\d*Y\s\d*M\s\d*D$", str(row[column])):
+                return True
+            #if it matches a range format e.g. 48Y-84Y/10M-12M/2D-8D
+            elif re.match(r"^\d*Y-\d*Y\/\d*M-\d*M\/\d*D-\d*D$", str(row[column])):
+                return True
+    return False
 
 
 def convert_df(df):
-    """This function requires a dataframe and sorts its columns as source name - characteristics - others - comment. It then converts the dataframe to a tsv file and downloads it"""
+    """This function requires a dataframe and sorts its columns as source name - characteristics - others - comment. 
+    Leading and trailing whitespaces are removed from all columns
+    It then converts the dataframe to a tsv file and downloads it"""
     #sort dataframe so that "source name" is the first column
     cols = df.columns.tolist()
     #get all elements from the list that start with "characteristic" and sort them alphabetically
@@ -365,6 +370,8 @@ def convert_df(df):
     #reorder the columns
     new_cols = ["source name"] + characteristic_cols + other_cols + comment_cols
     df = df[new_cols]
+    #remove leading and trailing whitespaces from all columns
+    df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
     return df.to_csv(index=False, sep="\t").encode("utf-8")
 
 

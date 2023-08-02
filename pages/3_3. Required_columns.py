@@ -150,7 +150,7 @@ if selection == "technology type":
     st.session_state["template_df"] = template_df
 
 if selection == "characteristics[age]":
-    st.subheader("Input the ages of your samples using the Years Months Days format, e.g. 1Y 2M 3D")
+    st.subheader("Input the ages of your samples using the Years Months Days format, e.g. 1Y 2M 3D. Age ranges should be formatted as e.g. 1Y-3Y")
     multiple = st.selectbox(f"Are there multiple ages in your data?", ("","No", "Yes", "Not available"), help="If you select Not available, the column will be filled in with 'Not available'")
     if multiple == "Yes":
         template_df = ParsingModule.fill_in_from_list(template_df, "characteristics[age]")

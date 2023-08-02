@@ -23,12 +23,25 @@ def update_session_state(df):
     st.session_state["template_df"] = df
 
 def check_age_format(df, column):
+    """
+    Check if the data in a column in a pandas dataframe follows the age formatting of Y M D.
+    If a range, this should be formatted as e.g. 48Y-84Y.
+    Parameters:
+    df (pandas.DataFrame): The pandas dataframe to check.
+    column (str): The name of the column to check.
+
+    Returns:
+    bool: True if all data in the column follows the age formatting of Y M D, False otherwise.
+    """
     for index, row in df.iterrows():
-        if (row[column] != "") and (row[column] != "empty") and (row[column] != "None"):
-            st.write(row[column])
-            if not re.match(r"^\d*Y\s\d*M\s\d*D$", row[column]):
-                return False
-    return True
+       if (row[column] not in ["", "empty", "None", "Not available"]):
+            if re.match(r"^\d*Y\s\d*M\s\d*D$", str(row[column])):
+                return True
+            #if it matches a range format e.g. 48Y-84Y/10M-12M/2D-8D
+            elif re.match(r"^\d*Y-\d*Y\/\d*M-\d*M\/\d*D-\d*D$", str(row[column])):
+                return True
+    return False
+
 
 
 st.title("""4. Additional columns""")
@@ -139,7 +152,7 @@ if selection == "technology type":
     st.session_state["template_df"] = template_df
 
 if selection == "characteristics[age]":
-    st.subheader("Input the ages of your samples using the Years Months Days format, e.g. 1Y 2M 3D")
+    st.subheader("Input the ages of your samples using the Years Months Days format, e.g. 1Y 2M 3D. Age ranges should be formatted as e.g. 1Y-3Y")
     multiple = st.selectbox(f"Are there multiple ages in your data?", ("","No", "Yes", "Not available"), help="If you select Not available, the column will be filled in with 'Not available'")
     if multiple == "Yes":
         template_df = ParsingModule.fill_in_from_list(template_df, "characteristics[age]")
