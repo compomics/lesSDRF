@@ -57,7 +57,7 @@ This application is currently in development and the current page is not yet fin
 but we have not yet decided on a strict template. 
 If you would like to be a part of this discussion, please use the button in the sidebar to get involved.
 """)
-url = "https://github.com/compomics/lesSDRF/issues"
+url = "https://github.com/bigbio/proteomics-sample-metadata/issues"
 button = f'<a href="{url}" style="{button_styles}" id="mybutton" onclick="document.getElementById(\'mybutton\').style.cssText = \'{clicked_styles}\'" target="_blank">Join the community effort</a>'
 with st.sidebar:
     st.write(button, unsafe_allow_html=True)
