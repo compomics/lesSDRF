@@ -365,10 +365,11 @@ def convert_df(df):
     #get all elements from the list that start with "characteristic" and sort them alphabetically
     characteristic_cols = sorted([i for i in cols if i.startswith("characteristic")])
     comment_cols = sorted([i for i in cols if i.startswith("comment")])
+    factor_value_cols = sorted([i for i in cols if i.startswith("factor")])
     #get all columns that don't start with "characteristic" or "comment"
-    other_cols = [i for i in cols if i not in characteristic_cols and i not in comment_cols and i not in ["source name"]]
+    other_cols = [i for i in cols if i not in characteristic_cols and i not in comment_cols and i not in factor_value_cols and i not in ["source name"]]
     #reorder the columns
-    new_cols = ["source name"] + characteristic_cols + other_cols + comment_cols
+    new_cols = ["source name"] + characteristic_cols + other_cols + comment_cols + factor_value_cols
     df = df[new_cols]
     #remove leading and trailing whitespaces from all columns
     df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)

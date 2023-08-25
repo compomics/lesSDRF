@@ -736,7 +736,7 @@ if selection == "comment[modification parameters]":
             if i == 0:
                 template_df[f"{selection}"] = mod
             else:
-                template_df.insert(index+i, f"{selection}_{i}", mod)
+                template_df.insert(index+i, f"{selection}", mod)
                 index += 1
     
         st.session_state["template_df"] = template_df
