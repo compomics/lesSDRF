@@ -284,7 +284,7 @@ if selection == "comment[dissociation method]":
     all_dissociation_elements = data_dict["all_dissociation_elements"]
     dissociation_nodes = data_dict["dissociation_nodes"]
     df = ParsingModule.multiple_ontology_tree(
-        selection, all_dissociation_elements, dissociation_nodes, template_df, multiple=True)
+        selection, all_dissociation_elements, dissociation_nodes, template_df, multiple_in_one=True)
     update_session_state(df)
 
 if selection == "characteristics[enrichment process]":
