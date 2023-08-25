@@ -65,7 +65,7 @@ Unimod_id	PSI-MS Name	Interim name	Description	Monoisotopic mass	Average mass	Co
 97	Propionamide:2H(3) 	Acrylamide_heavy 	Acrylamide d3 	74.055944	74.0964	H(2) 2H(3) C(3) N O
 105	ICAT-C 	ICAT_light 	Applied Biosystems cleavable ICAT(TM) light 	227.126991	227.2603	H(17) C(10) N(3) O(3)
 106	ICAT-C:13C(9) 	ICAT_heavy 	Applied Biosystems cleavable ICAT(TM) heavy 	236.157185	236.1942	H(17) C 13C(9) N(3) O(3)
-107	FormylMet 	#NAAM?	Addition of N-formyl met 	159.035399	159.2062	H(9) C(6) N O(2) S
+107	FormylMet 	N-formyl-met	Addition of N-formyl met 	159.035399	159.2062	H(9) C(6) N O(2) S
 108	Nethylmaleimide 	NEM 	N-ethylmaleimide on cysteines 	125.047679	125.1253	H(7) C(6) N O(2)
 112		OxLysBiotinRed 	Oxidized lysine biotinylated with biotin-LC-hydrazide	 reduced 	354.172562	354.4676
 113		OxLysBiotin 	Oxidized lysine biotinylated with biotin-LC-hydrazide 	352.156911	352.4518	H(24) C(16) N(4) O(3) S
