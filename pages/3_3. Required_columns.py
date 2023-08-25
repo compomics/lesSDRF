@@ -673,7 +673,6 @@ if selection == "comment[modification parameters]":
     unimod = data_dict["unimod_dict"]
     inputs = sorted(list(unimod.keys()))
     inputs.append("Other")
-    inputs.remove("#NAAM?")
     mt = ["Fixed", "Variable", "Annotated"]
     pp = ["Anywhere", "Protein N-term", "Protein C-term", "Any N-term", "Any C-term"]
     ta = ["X","G","A","L","M","F","W","K","Q","E","S","P","V","I","C","Y","H","R","N","D","T"]
