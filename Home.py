@@ -124,9 +124,10 @@ if selected_species != "":
         uploaded_names = re.sub(" ", "", uploaded_names)
         #if comma separated, split on comma, if tab separated, split on tab
         if "," in uploaded_names:
-            filenames.append(uploaded_names.split(","))
-        if "\t" in uploaded_names:
-            filenames.append(uploaded_names.split("\t"))
+            uploaded_names = uploaded_names.split(",")
+        elif "\t" in uploaded_names:
+            uploaded_names = uploaded_names.split("\t")
+        filenames.append(uploaded_names)
     if len(filenames[0]) > 250:
         st.error('Too many samples, please upload a maximum of 250 samples')
     else:
