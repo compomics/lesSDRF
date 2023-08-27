@@ -194,9 +194,9 @@ if selection == "characteristics[ancestry category]":
 
 if selection == "characteristics[cell type]":
     st.subheader("Input the cell type of your sample")
-    all_cell_type = data_dict["all_cell_elements"]
-    cell_type_nodes = data_dict["cell_nodes"]
-    df = ParsingModule.multiple_ontology_tree(selection, all_cell_type, cell_type_nodes, template_df, multiple_in_one=True)
+    all_cell = data_dict["all_cell_elements"]
+    cell_nodes = data_dict["cell_nodes"]
+    df = ParsingModule.multiple_ontology_tree(selection, all_cell, cell_nodes, template_df, multiple_in_one=True)
     update_session_state(df)
 
 if selection == "characteristics[cell line]":
