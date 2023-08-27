@@ -151,6 +151,7 @@ if selection == "technology type":
             template_df["technology type"] = tech_type
     st.session_state["template_df"] = template_df
 
+
 if selection == "characteristics[age]":
     st.subheader("Input the ages of your samples using the Years Months Days format, e.g. 1Y 2M 3D. Age ranges should be formatted as e.g. 1Y-3Y")
     multiple = st.selectbox(f"Are there multiple ages in your data?", ("","No", "Yes", "Not available"), help="If you select Not available, the column will be filled in with 'Not available'")
@@ -168,11 +169,9 @@ if selection == "characteristics[age]":
     if multiple == "No":
         age = st.text_input("Input the age of your sample in Y M D format e.g. 12Y 3M 4D", help="As you only have one age, the inputted age will be immediatly used to fill all cells in the age column")
         # Check if the age is in Y M D format or age range format
-        single_age_pattern = r"^\s*\d*\s*Y\s*\d*\s*M\s*\d*\s*D\s*$"
-        age_range_pattern = r"^\s*\d*\s*Y\s*-\s*\d*\s*Y\s*/\s*\d*\s*M\s*-\s*\d*\s*M\s*/\s*\d*\s*D\s*-\s*\d*\s*D\s*$"
-        
+
         if age:
-            if not (re.match(single_age_pattern, age) or re.match(age_range_pattern, age)):
+            if not (re.match(r"^(\s*\d+\s*Y)?(\s*\d+\s*M)?(\s*\d+\s*D)?(|\s*-\s*\d+\s*Y)?(|\s*-\s*\d+\s*M)?(|\s*-\s*\d+\s*D)?(/)?(|\s*\d+\s*Y)?(|\s*\d+\s*M)?(|\s*\d+\s*D)?$", age)):
                 st.error("The age is not in the correct format, please check and try again",icon="🚨")
                 st.stop()
             else:
@@ -184,7 +183,7 @@ if selection == "characteristics[age]":
         template_df["characteristics[age]"] = "Not available"
         update_session_state(template_df)
         st.experimental_rerun()
-
+        
 if selection == "comment[alkylation reagent]":
     st.subheader("Input the alkylation reagent that was used in your experiment")
     all_alkylation_elements = data_dict["all_alkylation_elements"]

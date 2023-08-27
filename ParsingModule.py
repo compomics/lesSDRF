@@ -351,10 +351,8 @@ def check_age_format(df, column):
     wrong_parts = []
     for index, row in df.iterrows():
         if row[column] not in ["", "empty", "None", "Not available"]:
-            if not re.match(r"^\s*\d*\s*Y\s*\d*\s*M\s*\d*\s*D\s*$", str(row[column])) and \
-               not re.match(r"^\s*\d*\s*Y\s*-\s*\d*\s*Y\s*/\s*\d*\s*M\s*-\s*\d*\s*M\s*/\s*\d*\s*D\s*-\s*\d*\s*D\s*$", str(row[column])):
+            if not re.match(r"^(\s*\d+\s*Y)?(\s*\d+\s*M)?(\s*\d+\s*D)?(|\s*-\s*\d+\s*Y)?(|\s*-\s*\d+\s*M)?(|\s*-\s*\d+\s*D)?(/)?(|\s*\d+\s*Y)?(|\s*\d+\s*M)?(|\s*\d+\s*D)?$", str(row[column])):
                 wrong_parts.append(row[column])
-
     return False if wrong_parts else True, wrong_parts
 
 
