@@ -55,6 +55,8 @@ def load_data():
 data_dict, unimod = load_data()
 if data_dict:
     st.success(f"*Data was loaded*", icon="✅")
+    #write the keys in data_dict
+    st.write(f"Keys in dict are {data_dict.keys()}")
 else:
     st.error("Failed loading data", icon="❌")
 if "data_dict" not in st.session_state:
