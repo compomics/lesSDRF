@@ -348,11 +348,12 @@ def check_age_format(df, column):
     """
     for index, row in df.iterrows():
        if (row[column] not in ["", "empty", "None", "Not available"]):
-            if re.match(r"^\d*Y\s\d*M\s\d*D$", str(row[column])):
-                return True
-            #if it matches a range format e.g. 48Y-84Y/10M-12M/2D-8D
-            elif re.match(r"^\d*Y-\d*Y\/\d*M-\d*M\/\d*D-\d*D$", str(row[column])):
-                return True
+            #if it matches a single format e.g. 48Y, ignore whitespace
+        if re.match(r"^\s*\d*\s*Y\s*\d*\s*M\s*\d*\s*D\s*$", str(row[column])): 
+            return True
+        # if it matches a range format e.g. 48Y-84Y/10M-12M/2D-8D
+        elif re.match(r"^\s*\d*\s*Y\s*-\s*\d*\s*Y\s*/\s*\d*\s*M\s*-\s*\d*\s*M\s*/\s*\d*\s*D\s*-\s*\d*\s*D\s*$", str(row[column])):
+            return True
     return False
 
 
