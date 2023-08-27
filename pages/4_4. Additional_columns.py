@@ -201,10 +201,10 @@ if selection == "characteristics[ancestry category]":
 if selection == "characteristics[cell type]":
     # if the selection is not in the columns, add it as an empty column
     st.subheader("Input the cell type of your sample")
-    all_cell_type = data_dict["all_cell_type_elements"]
-    cell_type_nodes = data_dict["cell_type_nodes"]
+    all_cell = data_dict["all_cell_elements"]
+    cell_nodes = data_dict["cell_nodes"]
     df = ParsingModule.multiple_ontology_tree(
-        selection, all_cell_type, cell_type_nodes, template_df
+        selection, all_cell, cell_nodes, template_df
     )
     update_session_state(df)
 
