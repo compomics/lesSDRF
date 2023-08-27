@@ -119,10 +119,14 @@ if selected_species != "":
 
     # Ask user to upload filenames of their samples
     filenames = []
-    uploaded_names = st.text_input("Input raw file names as a comma separated list", help="The raw file names will be input in the comment[data file] column and are the basis of your SDRF file. Input maximum 250 raw files")
+    uploaded_names = st.text_input("Input raw file names as a comma or tab separated list", help="The raw file names will be input in the comment[data file] column and are the basis of your SDRF file. Input maximum 250 raw files")
     if uploaded_names is not None:
         uploaded_names = re.sub(" ", "", uploaded_names)
-        uploaded_names = uploaded_names.split(",")
+        #if comma separated, split on comma, if tab separated, split on tab
+        if "," in uploaded_names:
+            filenames.append(uploaded_names.split(","))
+        if "\t" in uploaded_names:
+            filenames.append(uploaded_names.split("\t"))
         filenames.append(uploaded_names)
     if len(filenames[0]) > 250:
         st.error('Too many samples, please upload a maximum of 250 samples')
