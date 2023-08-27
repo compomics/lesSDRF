@@ -129,7 +129,8 @@ if selected_species != "":
             uploaded_names = uploaded_names.split("\t")
         filenames.append(uploaded_names)
     if len(filenames[0]) > 250:
-        st.write(filenames)
+        st.write(filenames[0])
+        st.write(uploaded_names)
         st.error('Too many samples, please upload a maximum of 250 samples')
     else:
         st.write(f"Added filenames: {filenames[0]}")
