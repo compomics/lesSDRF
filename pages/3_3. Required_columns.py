@@ -155,25 +155,30 @@ if selection == "characteristics[age]":
     multiple = st.selectbox(f"Are there multiple ages in your data?", ("","No", "Yes", "Not available"), help="If you select Not available, the column will be filled in with 'Not available'")
     if multiple == "Yes":
         template_df = ParsingModule.fill_in_from_list(template_df, "characteristics[age]")
-        if ParsingModule.check_age_format(template_df, "characteristics[age]") == False:
-            st.error("The age column is not in the correct format, please check and try again")
+        is_valid, wrong_values = ParsingModule.check_age_format(template_df, "characteristics[age]") 
+        if not is_valid:
+            st.error(f"The age column is not in the correct format. Wrong values: {', '.join(wrong_values)}")
             st.stop()
-        elif ParsingModule.check_age_format(template_df, "characteristics[age]") == True:
+        else:
             template_df.replace("empty", np.nan, inplace=True)
             st.success("The age column is in the correct format")
             update_session_state(template_df)
             st.experimental_rerun()
     if multiple == "No":
         age = st.text_input("Input the age of your sample in Y M D format e.g. 12Y 3M 4D", help="As you only have one age, the inputted age will be immediatly used to fill all cells in the age column")
-        # check if the age is in Y M D format
-        if (age != "") and (not re.match(r"^\d*Y\s\d*M\s\d*D$", age)):
-            st.error("The age is not in the correct format, please check and try again",icon="🚨")
-            st.stop()
-        if (age != "") and (re.match(r"^\d*Y\s\d*M\s\d*D$", age)):
-            st.write("The age is in the correct format")
-            template_df["characteristics[age]"] = age
-            update_session_state(template_df)
-            st.experimental_rerun()  # reruns script, makes it unnecessary to click button twice
+        # Check if the age is in Y M D format or age range format
+        single_age_pattern = r"^\s*\d*\s*Y\s*\d*\s*M\s*\d*\s*D\s*$"
+        age_range_pattern = r"^\s*\d*\s*Y\s*-\s*\d*\s*Y\s*/\s*\d*\s*M\s*-\s*\d*\s*M\s*/\s*\d*\s*D\s*-\s*\d*\s*D\s*$"
+        
+        if age:
+            if not (re.match(single_age_pattern, age) or re.match(age_range_pattern, age)):
+                st.error("The age is not in the correct format, please check and try again",icon="🚨")
+                st.stop()
+            else:
+                st.write("The age is in the correct format")
+                template_df["characteristics[age]"] = age
+                update_session_state(template_df)
+                st.experimental_rerun()
     if multiple == "Not available":
         template_df["characteristics[age]"] = "Not available"
         update_session_state(template_df)
