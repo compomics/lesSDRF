@@ -30,8 +30,6 @@ st.set_page_config(
 def load_data():
     local_dir = os.path.dirname(__file__)
     folder_path = os.path.join(local_dir, "data")
-    #print the folder path
-    print(folder_path)
     unimod_path = os.path.join(local_dir, "ontology", "unimod.csv")
     data = {}
     for filename in os.listdir(folder_path):
@@ -51,12 +49,11 @@ def load_data():
             st.write(f"Skipping file {file_path}: not a gzipped file")
 
     unimod = pd.read_csv(unimod_path, sep="\t")
-    return data, unimod, folder_path
+    return data, unimod
 
 
-data_dict, unimod, folder_path = load_data()
+data_dict, unimod = load_data()
 if data_dict:
-    st.write(folder_path)
     st.success(f"*Data was loaded*", icon="✅")
 else:
     st.error("Failed loading data", icon="❌")
