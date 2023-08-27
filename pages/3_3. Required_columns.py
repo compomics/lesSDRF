@@ -83,7 +83,8 @@ else:
         st.dataframe(template_df)
 
 data_dict = st.session_state["data_dict"]
-empty_columns = [col for col in template_df.columns if template_df[col].isna().all()]
+#get all columns that are empty or contain only the word "empty" in template_df
+empty_columns = [col for col in template_df.columns if template_df[col].isnull().all() or (template_df[col] == "empty").all()]
 #remove columns from the list that have an underscore in the name(these are added because of multiple in one samples)
 empty_columns = [col for col in empty_columns if "_" not in col]
 empty_columns.append('undo column')
@@ -158,6 +159,7 @@ if selection == "characteristics[age]":
             st.error("The age column is not in the correct format, please check and try again")
             st.stop()
         elif ParsingModule.check_age_format(template_df, "characteristics[age]") == True:
+            template_df.replace("empty", np.nan, inplace=True)
             st.success("The age column is in the correct format")
             update_session_state(template_df)
             st.experimental_rerun()

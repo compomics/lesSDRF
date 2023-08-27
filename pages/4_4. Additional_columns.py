@@ -160,6 +160,7 @@ if selection == "characteristics[age]":
             st.error("The age column is not in the correct format, please check and try again")
             st.stop()
         elif check_age_format(template_df, "characteristics[age]") == True:
+            template_df.replace("empty", np.nan, inplace=True)
             st.success("The age column is in the correct format")
             update_session_state(template_df)
             st.experimental_rerun()
