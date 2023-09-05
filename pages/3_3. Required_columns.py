@@ -208,15 +208,17 @@ if selection == "characteristics[cell line]":
     st.subheader("Input the cell line of your sample if one was used")
     all_cellline = data_dict["all_cell_line_elements"]
     cellline_nodes = data_dict["cell_line_nodes"]
-    df = ParsingModule.multiple_ontology_tree(selection, all_cellline, cellline_nodes, template_df,multiple_in_one=True)
+    df = ParsingModule.multiple_ontology_tree(selection, all_cellline, cellline_nodes, template_Fdf,multiple_in_one=True)
     update_session_state(df)
 
 if selection == "comment[cleavage agent details]":
-    st.subheader("Select the cleavage agent present in your sample")
-    all_cleavage_agent_elements = data_dict["all_cleavage_agent_elements"]
-    cleavage_agent_nodes = data_dict["cleavage_agent_nodes"]
-    df = ParsingModule.multiple_ontology_tree(selection, all_cleavage_agent_elements, cleavage_agent_nodes, template_df, multiple_in_one=True)
-    update_session_state(df)
+    st.subheader("Input the cleavage agent details of your sample")
+    cleavage_list = data_dict["cleavage_list"]
+    enzymes = st.multiselect(
+        "Select the cleavage agents used in your sample If no cleavage agent was used e.g. in top down proteomics, choose *no cleavage*",
+        cleavage_list,
+    )
+    s = st.checkbox("Ready for input?")
 
 if selection == "characteristics[compound]":
     st.subheader("If a compound was added to your sample, input the name here")

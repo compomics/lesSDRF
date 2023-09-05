@@ -120,7 +120,8 @@ if selection == "start":
 if selection == "factor value":
 
     st.write(
-        """You can choose one column that defines the **factor value** in your experiment.  \nThis column indicates which experimental factor/variable is used as the hypothesis to perform the data analysis.  \nIf there are multiple factor values, we suggest to make multiple SDRF files to avoid confusion concerning biological and technical replicates."""
+        """You can choose one or multiple columns that define the **factor value** in your experiment.  \nThis column indicates which experimental factor/variable is used as the hypothesis to perform the data analysis.  \n
+        If there are multiple factor values, we ask the user to take care in assigning biological and technical replicates."""
     )
     col1, col2 = st.columns(2)
     with col1:
@@ -222,7 +223,7 @@ if selection == "characteristics[cell line]":
 
 if selection == "comment[cleavage agent details]":
     st.subheader("Input the cleavage agent details of your sample")
-    cleavage_list = data_dict["all_cleavage_list_elements"]
+    cleavage_list = data_dict["cleavage_list"]
     enzymes = st.multiselect(
         "Select the cleavage agents used in your sample If no cleavage agent was used e.g. in top down proteomics, choose *no cleavage*",
         cleavage_list,
