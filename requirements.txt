@@ -5,3 +5,5 @@ streamlit-tree-select==0.0.5
 jsonschema==4.17.0
 zipp==3.10.0
 openpyxl== 3.1.1
+
+#command line to check streamlit version in pip
