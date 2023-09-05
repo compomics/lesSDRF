@@ -215,7 +215,7 @@ if selection == "comment[cleavage agent details]":
     st.subheader("Input the cleavage agent details of your sample")
     cleavage_list = data_dict["cleavage_list"]
     enzymes = st.multiselect(
-        "Select the cleavage agents used in your sample If no cleavage agent was used e.g. in top down proteomics, choose *no cleavage*",
+        "Select the cleavage agents used in your sample If no cleavage agent was used e.g. in top down proteomics, choose *NoEnzyme*",
         cleavage_list,
     )
     s = st.checkbox("Ready for input?")
