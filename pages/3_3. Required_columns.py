@@ -218,7 +218,13 @@ if selection == "comment[cleavage agent details]":
         "Select the cleavage agents used in your sample If no cleavage agent was used e.g. in top down proteomics, choose *NoEnzyme*",
         cleavage_list,
     )
-    s = st.checkbox("Ready for input?")
+    s = st.checkbox("Ready for input?")   
+    if s and len(enzymes) == 1:
+        template_df[selection] = enzymes[0]
+        st.experimental_rerun()
+    if s:
+        df = ParsingModule.fill_in_from_list(template_df, selection, enzymes)
+        update_session_state(df)
 
 if selection == "characteristics[compound]":
     st.subheader("If a compound was added to your sample, input the name here")
@@ -743,7 +749,7 @@ if selection == "comment[modification parameters]":
             if i == 0:
                 template_df[f"{selection}"] = mod
             else:
-                template_df.insert(index+i, f"{selection}", mod)
+                template_df.insert(index+i, f"{selection}_{i}", mod)
                 index += 1
     
         st.session_state["template_df"] = template_df

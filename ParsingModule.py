@@ -355,7 +355,6 @@ def check_age_format(df, column):
                 wrong_parts.append(row[column])
     return False if wrong_parts else True, wrong_parts
 
-
 def convert_df(df):
     """This function requires a dataframe and sorts its columns as source name - characteristics - others - comment. 
     Leading and trailing whitespaces are removed from all columns

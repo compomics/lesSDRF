@@ -22,28 +22,6 @@ st.set_page_config(
 def update_session_state(df):
     st.session_state["template_df"] = df
 
-def check_age_format(df, column):
-    """
-    Check if the data in a column in a pandas dataframe follows the age formatting of Y M D.
-    If a range, this should be formatted as e.g. 48Y-84Y.
-    Parameters:
-    df (pandas.DataFrame): The pandas dataframe to check.
-    column (str): The name of the column to check.
-
-    Returns:
-    bool: True if all data in the column follows the age formatting of Y M D, False otherwise.
-    """
-    for index, row in df.iterrows():
-       if (row[column] not in ["", "empty", "None", "Not available"]):
-            if re.match(r"^\d*Y\s\d*M\s\d*D$", str(row[column])):
-                return True
-            #if it matches a range format e.g. 48Y-84Y/10M-12M/2D-8D
-            elif re.match(r"^\d*Y-\d*Y\/\d*M-\d*M\/\d*D-\d*D$", str(row[column])):
-                return True
-    return False
-
-
-
 st.title("""4. Additional columns""")
 # Get filled in template_df from other page
 # if template_df is not in the session state, don't run all the code below
@@ -228,8 +206,7 @@ if selection == "comment[cleavage agent details]":
         "Select the cleavage agents used in your sample If no cleavage agent was used e.g. in top down proteomics, choose *NoEnzyme*",
         cleavage_list,
     )
-    s = st.checkbox("Ready for input?")
-    
+    s = st.checkbox("Ready for input?")   
     if s and len(enzymes) == 1:
         template_df[selection] = enzymes[0]
         st.experimental_rerun()
