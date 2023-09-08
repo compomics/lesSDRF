@@ -1,6 +1,6 @@
 # lesSDRF
 
-This github repository contains the code used to create the SDRF Streamlit application lesSDRF
+This github repository contains the code used to create the lesSDRF application which is available via https://lessdrf.streamlit.app/
 
 The ontologies were downloaded in the format that was available and parsable.
 In obo format:
@@ -17,5 +17,5 @@ The parsed ontologies used in the streamlit app are in the data folder. Every to
 - dict: a nested dictionary that follows the ontology tree structure
 - nodes: a node like version of the nested dictionary according to the format required for the tree-select module: https://github.com/Schluca/streamlit_tree_select
 
-To start the app you run: ** streamlit run Home.py **
-This will then open the Home screen of the app. The following steps can be found in the pages folder and are numbered accordingly.
+To start the app locally you run: ** streamlit run Home.py **
+
