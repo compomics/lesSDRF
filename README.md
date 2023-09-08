@@ -1,6 +1,7 @@
 # lesSDRF
 
 This github repository contains the code used to create the lesSDRF application which is available via https://lessdrf.streamlit.app/
+A manual on the tool in pdf format is available here: https://github.com/compomics/lesSDRF/blob/main/lesSDRF_manual.pdf
 
 The ontologies were downloaded in the format that was available and parsable.
 In obo format:
