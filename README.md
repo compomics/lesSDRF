@@ -11,14 +11,14 @@ The parsed ontologies used in the streamlit app are in the data folder. Every to
 To start the app locally you run: ** streamlit run Home.py **
 This will then open the Home screen of the app. The following steps can be found in the pages folder and are numbered accordingly.
 
-### lesSDRF v0.1.0 has the following ontologies incorporated:
+### lesSDRF v0.1.0 has the following ontologies incorporated:<br>
 
-    Streamlit version 1.19.0 and Python version 3.9.13
+    Streamlit version 1.19.0 and Python version 3.9.13<br>
     
-    PRIDE CV (version 2022-11-17)
+    PRIDE CV (version 2022-11-17)<br>
     
-    PSI-MS (version 2022-09-26) and NCBITaxon (version 2022-08-18) in obo format
+    PSI-MS (version 2022-09-26) and NCBITaxon (version 2022-08-18) in obo format<br>
     
-    CL (version 2022-12-25) and HANCESTRO (version 2.6) in OWL format
+    CL (version 2022-12-25) and HANCESTRO (version 2.6) in OWL format<br>
     
-    and EFO (version 3.49.0) in JSON format. 
+    and EFO (version 3.49.0) in JSON format. <br>
