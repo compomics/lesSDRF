@@ -358,7 +358,9 @@ def check_age_format(df, column):
 def convert_df(df):
     """This function requires a dataframe and sorts its columns as source name - characteristics - others - comment. 
     Leading and trailing whitespaces are removed from all columns
-    It then converts the dataframe to a tsv file and downloads it"""
+    It then converts the dataframe to a tsv file and downloads it
+    It also adds an comment[annotator column] to indicate it was built with lesSDRF and ontology versioning"""
+    df["comment[annotator tool]"] = "lesSDRF v0.1.0"
     #sort dataframe so that "source name" is the first column
     cols = df.columns.tolist()
     #get all elements from the list that start with "characteristic" and sort them alphabetically
@@ -373,6 +375,7 @@ def convert_df(df):
     #remove leading and trailing whitespaces from all columns
     df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
     return df.to_csv(index=False, sep="\t").encode("utf-8")
+
 
 
 def autocomplete_species_search(taxum_list, search_term):
