@@ -391,7 +391,7 @@ def autocomplete_species_search(taxum_list, search_term):
                 use_exact_match  = st.checkbox("Use exact match", key=f"exact_{search_term}")
                 if use_exact_match:
                     return exact_match[0]
-        # if length is between 0 and 250, display the options
+        # if length is between 0 and 500, display the options
         if len(filtered_options) > 0 and len(filtered_options) < 500:
             with col1:
                 selected_options = st.multiselect("Some options closely matching your search time could be found", filtered_options)      
@@ -403,6 +403,6 @@ def autocomplete_species_search(taxum_list, search_term):
                     if use_options:
                         return selected_options
         if len(filtered_options) > 500:
-            st.write("Too many closely related options to display. Please refine your search.")
+            st.write("Too many closely related options to display (>500). Please refine your search.")
         if len(filtered_options) == 0:
             st.write("No options found. Please refine your search.")
