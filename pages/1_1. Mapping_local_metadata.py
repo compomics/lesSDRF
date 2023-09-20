@@ -43,7 +43,6 @@ with st.sidebar:
     download = st.download_button("Press to download SDRF file",ParsingModule.convert_df(template_df), "intermediate_SDRF.sdrf.tsv", help="download your SDRF file")
 
 # Ask the user to upload their own metadata file and to map it to the columns of the template file
-test = st.checkbox('Test manual')
 metadata_sheet = st.file_uploader(
     "Upload your local metadata file (.csv, .tsv or .xls)", type=["csv", "tsv", "xlsx"]
 )
@@ -65,10 +64,7 @@ if metadata_sheet is not None:
             "There is a mismatch in the number of uploaded files and the number of files in the metadata sheet",
             icon="🚨",
         )
-    if test:
-        st.write('**Test mode**')
-        st.session_state["template_df"] = metadata_df
-        st.dataframe(template_df)
+
 
     meta_columns = list(metadata_df.columns)
     template_columns = [
