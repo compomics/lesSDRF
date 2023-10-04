@@ -1,0 +1,12 @@
+cff-version: 1.1.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Claeys
+    given-names: Tine
+    orcid: https://orcid.org/0000-0001-9408-488X
+title: compomics/lesSDRF: lesSDRF v0.1.0
+version: v0.1.0
+doi:10.5281/zenodo.8406626 
+date-released: 2023-10-04
+article: 
+            
