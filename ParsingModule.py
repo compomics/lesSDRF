@@ -372,6 +372,8 @@ def convert_df(df):
     #reorder the columns
     new_cols = ["source name"] + characteristic_cols + other_cols + comment_cols + factor_value_cols
     df = df[new_cols]
+    #if a column name contains _ followed by a number, remove the underscore and the number
+    df.columns = [re.sub(r"(_\d+)", "", i) for i in df.columns]
     #remove leading and trailing whitespaces from all columns
     df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
     return df.to_csv(index=False, sep="\t").encode("utf-8")
