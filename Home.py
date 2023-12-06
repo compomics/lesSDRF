@@ -64,8 +64,8 @@ st.subheader("Spending less time on SDRF creates more time for amazing research"
 st.write(
     """By providing metadata in a machine-readable format, other researchers can access your data more easily and you maximize its impact. 
     The Sample and Data Relationship Format ([SDRF](https://www.nature.com/articles/s41467-021-26111-3)) is the HUPO-PSI recognized metadata format within proteomics. \n
-    lesSDRF will streamline this annotation process for you. This tool is developed by the [CompOmics group](https://compomics.com/) and published in [Nature Communications](https://www.nature.com/articles/s41467-023-42543-5). \n
-    \n
+    lesSDRF will streamline this annotation process for you. This tool is developed by the [CompOmics group](https://compomics.com/) and published in [Nature Communications](https://www.nature.com/articles/s41467-023-42543-5). \n""")
+st.write("""
     On this homepage, select the species-specific default SDRF file that matches your study and provide the raw file names. 
     Then, follow the steps in the sidebar.  
 - Step 1: If you have a local metadata file, you can upload it to map to the SDRF file
@@ -139,5 +139,5 @@ if selected_species != "":
         st.session_state["template_df"] = template_df
     with st.sidebar:
         download = st.download_button("Press to download SDRF file",ParsingModule.convert_df(template_df), "intermediate_SDRF.sdrf.tsv", help="download your SDRF file")
-        st.write("""Please refer to your data and lesSDRF within your manuscript as follows:\n
+        st.write("""Please refer to your data and lesSDRF within your manuscript as follows:
                  The experimental metadata has been generated using lesSDRF and is available through ProteomeXchange with the dataset identifier [PXDxxxxxxx]""")
