@@ -65,7 +65,7 @@ st.markdown(
     """The Sample and Data Relationship Format (SDRF) is a crucial tool for maximizing the potential impact of your data. 
     By providing metadata in a machine-readable format, other researchers can access your data more easily. \n
     \n
-    lesSDRF is developed by the [CompOmics](https://compomics.com/) group and published in [Nature Communications](https://www.nature.com/articles/s41467-021-26111-3). \n
+    lesSDRF is developed by the [CompOmics](https://compomics.com/) group and published in [Nature Communications](https://www.nature.com/articles/s41467-023-42543-5). \n
     """
 )
 st.markdown(
