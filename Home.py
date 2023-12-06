@@ -53,10 +53,6 @@ def load_data():
 
 
 data_dict, unimod = load_data()
-if data_dict:
-    st.success(f"*Data was loaded*", icon="✅")
-else:
-    st.error("Failed loading data", icon="❌")
 if "data_dict" not in st.session_state:
     st.session_state["data_dict"] = data_dict
 if "unimod" not in st.session_state:
@@ -64,15 +60,18 @@ if "unimod" not in st.session_state:
 
 
 st.title("Welcome to lesSDRF")
-st.subheader("The SDRF annotation tool, because spending less time on SDRF creates more time for amazing research")
+st.subheader("Spending less time on SDRF creates more time for amazing research")
 st.markdown(
     """The Sample and Data Relationship Format (SDRF) is a crucial tool for maximizing the potential impact of your data. 
-    By making metadata available and machine-readable, other researchers can study your data more easily."""
+    By providing metadata in a machine-readable format, other researchers can access your data more easily. \n
+    \n
+    lesSDRF is developed by the [CompOmics](https://compomics.com/) group and published in [Nature Communications](https://www.nature.com/articles/s41467-021-26111-3). \n
+    """
 )
 st.markdown(
-    """ This tool will help you to annotate your data with the correct metadata in several steps for a maximum of 250 samples.
-    First, on this homepage, you will need to select a default SDRF file based on the species of your sample and provide the raw file names. 
-    Then you can follow the steps in the sidebar.  
+    """ This tool will streamline your metadata annotation in several steps, for a maximum of 250 samples.
+    On this homepage, select the species-specific default SDRF file that matches your study and provide the raw file names. 
+    Then, follow the steps in the sidebar.  
 - Step 1: If you have a local metadata file, you can upload it to map to the SDRF file
 - Step 2: Provide information on potential labels in your sample
 - Step 3: Fill in the columns that are required for a valid SDRF
@@ -81,8 +80,8 @@ st.markdown(
 """
 )
 
-st.markdown("""You are able to download the intermediate file at any given timepoint, so you can come back to the other steps whenever is suitable for you.  
-If this is the case right now, please upload your intermediate SDRF file here:""")
+st.markdown("""You are able to download your intermediate file at any given time, so you can come back to the other steps whenever suits you.  
+Upload your intermediate SDRF file here:""")
 
 upload_df = st.file_uploader(
     "Upload intermediate SDRF file", type=["tsv"], accept_multiple_files=False, help='Upload a previously saved SDRF file. It should be in tsv format and should not contain more than 250 samples'
