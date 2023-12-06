@@ -41,7 +41,8 @@ else:
 
 with st.sidebar:
     download = st.download_button("Press to download SDRF file",ParsingModule.convert_df(template_df), "intermediate_SDRF.sdrf.tsv", help="download your SDRF file")
-
+    st.write("""Please refer to your data and lesSDRF within your manuscript as follows:
+                 *The experimental metadata has been generated using lesSDRF and is available through ProteomeXchange with the dataset identifier [PXDxxxxxxx]*""")
 # Ask the user to upload their own metadata file and to map it to the columns of the template file
 metadata_sheet = st.file_uploader(
     "Upload your local metadata file (.csv, .tsv or .xls)", type=["csv", "tsv", "xlsx"]

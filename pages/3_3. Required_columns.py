@@ -99,7 +99,8 @@ with st.sidebar:
         empty_columns, help="If a column you're looking for is not in this display, This means it is not empty. Click on the 'undo column' button and empty your column of interest."
     )
     download = st.download_button("Press to download SDRF file",ParsingModule.convert_df(template_df), "intermediate_SDRF.sdrf.tsv", help="download your SDRF file")
-
+    st.write("""Please refer to your data and lesSDRF within your manuscript as follows:
+                 *The experimental metadata has been generated using lesSDRF and is available through ProteomeXchange with the dataset identifier [PXDxxxxxxx]*""")
 
 if selection == 'start':
     st.write("""In the sidebar, all the empty columns that are required for you SDRF file are listed. Select the one you want to annotate first.  

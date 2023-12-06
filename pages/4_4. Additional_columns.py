@@ -86,7 +86,8 @@ side_bar_columns.append("undo column")
 with st.sidebar:
     selection = st.radio("These are all possible columns you may want to add:", side_bar_columns)
     download = st.download_button("Press to download SDRF file",ParsingModule.convert_df(template_df), "intermediate_SDRF.sdrf.tsv", help="download your SDRF file")
-
+    st.write("""Please refer to your data and lesSDRF within your manuscript as follows:
+                 *The experimental metadata has been generated using lesSDRF and is available through ProteomeXchange with the dataset identifier [PXDxxxxxxx]*""")
 
 if selection == "start":
     st.write("""There are still columns that you can add to your SDRF file.  

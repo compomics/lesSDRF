@@ -40,7 +40,8 @@ if "all_selected_labels" not in st.session_state:
 
 with st.sidebar:
     download = st.download_button("Press to download SDRF file",ParsingModule.convert_df(template_df), "intermediate_SDRF.sdrf.tsv", help="download your SDRF file")
-    
+    st.write("""Please refer to your data and lesSDRF within your manuscript as follows:
+                 *The experimental metadata has been generated using lesSDRF and is available through ProteomeXchange with the dataset identifier [PXDxxxxxxx]*""")
 #first select the labels
 st.write("Input the label that was used in your experiment. If no label was added, indicate this using *label free sample*.")
 all_label_elements = data_dict["all_label_elements"]
