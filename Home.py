@@ -63,11 +63,9 @@ st.title("Welcome to lesSDRF")
 st.subheader("Spending less time on SDRF creates more time for amazing research")
 st.markdown(
     """The Sample and Data Relationship Format (SDRF) is a crucial tool for maximizing the potential impact of your data. 
-    By providing metadata in a machine-readable format, other researchers can access your data more easily. \n
-    \n
-    lesSDRF is developed by the [CompOmics](https://compomics.com/) group and published in [Nature Communications](https://www.nature.com/articles/s41467-023-42543-5). \n
-    """
-)
+    By providing metadata in a machine-readable format, other researchers can access your data more easily. \n""")
+st.write(
+    """lesSDRF is developed by the [CompOmics](https://compomics.com/) group and published in [Nature Communications](https://www.nature.com/articles/s41467-023-42543-5). \n""")
 st.markdown(
     """ This tool will streamline your metadata annotation in several steps, for a maximum of 250 samples.
     On this homepage, select the species-specific default SDRF file that matches your study and provide the raw file names. 
