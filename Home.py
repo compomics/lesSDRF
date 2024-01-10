@@ -12,7 +12,7 @@ import gzip
 local_dir = os.path.dirname(__file__)
     
 st.set_page_config(
-    page_title="SDRF annotation tool",
+    page_title="lesSDRF",
     layout="wide",
     page_icon="🧪",
     menu_items={
@@ -58,7 +58,7 @@ if "data_dict" not in st.session_state:
 if "unimod" not in st.session_state:
     st.session_state["unimod"] = unimod
 
-
+st.image('final_logo.png')
 st.title("Welcome to lesSDRF")
 st.subheader("Spending less time on SDRF creates more time for amazing research")
 st.write(
