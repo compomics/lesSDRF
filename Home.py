@@ -57,12 +57,9 @@ if "data_dict" not in st.session_state:
     st.session_state["data_dict"] = data_dict
 if "unimod" not in st.session_state:
     st.session_state["unimod"] = unimod
-#make two columns, one with title and one with logo
-col1, col2 = st.columns(2)
-with col1:
-    st.title("Welcome to lesSDRF")
-with col2:
-    st.image("final_logo.png", width=350)
+st.image("final_logo.png", width=350)
+st.title("Welcome to lesSDRF")
+
 st.subheader("Spending less time on SDRF creates more time for amazing research")
 st.write(
     """By providing metadata in a machine-readable format, other researchers can access your data more easily and you maximize its impact. 
