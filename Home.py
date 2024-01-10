@@ -31,6 +31,25 @@ def add_logo(logo_path, width, height):
 
 my_logo = add_logo(logo_path="final_logo.png", width=149, height=58)
 st.sidebar.image(my_logo)
+
+#add a logo using ccs
+
+def add_logo():
+    my_logo = add_logo(logo_path="final_logo.png", width=149, height=58)
+    st.markdown(
+        """
+        <style>
+            [data-testid="stSidebarNav"] {
+                background-image: url('final_logo.png');
+                background-repeat: no-repeat;
+                padding-top: 120px;
+                background-position: 20px 20px;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+add_logo()
 #get local directory using os, and add the data folder to the path
 
 
