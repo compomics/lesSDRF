@@ -29,8 +29,7 @@ def add_logo(logo_path, width, height):
     modified_logo = logo.resize((width, height))
     return modified_logo
 
-my_logo = add_logo(logo_path="final_logo.png", width=50, height=60)
-st.sidebar.image(my_logo)
+my_logo = add_logo(logo_path="final_logo.png", width=149, height=58)
 #get local directory using os, and add the data folder to the path
 
 
@@ -67,9 +66,11 @@ if "data_dict" not in st.session_state:
     st.session_state["data_dict"] = data_dict
 if "unimod" not in st.session_state:
     st.session_state["unimod"] = unimod
-st.image("final_logo.png", width=350)
-st.title("Welcome to lesSDRF")
-
+col1, col2 = st.columns(2)
+with col1:
+    st.title("Welcome to lesSDRF")
+with col2:
+    st.image(my_logo)
 st.subheader("Spending less time on SDRF creates more time for amazing research")
 st.write(
     """By providing metadata in a machine-readable format, other researchers can access your data more easily and you maximize its impact. 
