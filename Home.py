@@ -11,7 +11,8 @@ import json
 import gzip
 local_dir = os.path.dirname(__file__)
 from PIL import Image
-
+import base64
+import io
 im = Image.open('final_logo.png')
 st.set_page_config(
     page_title="lesSDRF",
