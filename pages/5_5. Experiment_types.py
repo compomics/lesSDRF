@@ -7,6 +7,35 @@ import re
 import warnings
 warnings.filterwarnings("ignore")
 
+from PIL import Image
+import base64
+import io
+def add_logo(logo_path, width, height):
+    """Read and return a resized logo"""
+    logo = Image.open(logo_path)
+    modified_logo = logo.resize((width, height))
+    return modified_logo
+
+def get_base64_image(image):
+    img_buffer = io.BytesIO()
+    image.save(img_buffer, format="PNG")
+    img_str = base64.b64encode(img_buffer.getvalue()).decode()
+    return img_str
+
+my_logo = add_logo(logo_path="final_logo.png", width=149, height=58)
+
+st.markdown(
+    f"""
+    <style>
+        [data-testid="stSidebarNav"] {{
+            background-image: url('data:image/png;base64,{get_base64_image(my_logo)}');
+            background-repeat: no-repeat;
+            background-position: 40px 20px;
+        }}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 # Define the default button color (you can adjust this as desired)
 default_color = "#ffa478"
