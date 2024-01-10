@@ -62,7 +62,7 @@ col1, col2 = st.columns(2)
 with col1:
     st.title("Welcome to lesSDRF")
 with col2:
-    st.image("final_logo.svg", width=20)
+    st.image("final_logo.svg", width=2)
 st.subheader("Spending less time on SDRF creates more time for amazing research")
 st.write(
     """By providing metadata in a machine-readable format, other researchers can access your data more easily and you maximize its impact. 
