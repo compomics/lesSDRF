@@ -23,6 +23,14 @@ st.set_page_config(
     },
 )
 
+def add_logo(logo_path, width, height):
+    """Read and return a resized logo"""
+    logo = Image.open(logo_path)
+    modified_logo = logo.resize((width, height))
+    return modified_logo
+
+my_logo = add_logo(logo_path="final_logo.png", width=50, height=60)
+st.sidebar.image(my_logo)
 #get local directory using os, and add the data folder to the path
 
 
