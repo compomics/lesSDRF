@@ -66,7 +66,7 @@ if "data_dict" not in st.session_state:
     st.session_state["data_dict"] = data_dict
 if "unimod" not in st.session_state:
     st.session_state["unimod"] = unimod
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3 = st.columns(3)
 with col1:
     st.title("Welcome to lesSDRF")
 with col2:
