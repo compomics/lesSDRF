@@ -10,9 +10,16 @@ import ParsingModule
 import os
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode
 from streamlit_tree_select import tree_select
-from PIL import Image
-import base64
-import io
+
+st.set_page_config(
+    page_title="Required columns",
+    layout="wide",
+    page_icon="🧪",
+    menu_items={
+        "Get help": "https://github.com/compomics/lesSDRF/issues",
+        "Report a bug": "https://github.com/compomics/lesSDRF/issues",
+    },
+)
 def add_logo(logo_path, width, height):
     """Read and return a resized logo"""
     logo = Image.open(logo_path)
@@ -38,16 +45,6 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True,
-)
-
-st.set_page_config(
-    page_title="Required columns",
-    layout="wide",
-    page_icon="🧪",
-    menu_items={
-        "Get help": "https://github.com/compomics/lesSDRF/issues",
-        "Report a bug": "https://github.com/compomics/lesSDRF/issues",
-    },
 )
 
 def update_session_state(df):

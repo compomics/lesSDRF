@@ -8,6 +8,18 @@ warnings.filterwarnings("ignore")
 from PIL import Image
 import base64
 import io
+
+    
+st.set_page_config(
+    page_title="Map local metadata",
+    layout="wide",
+    page_icon="🧪",
+    menu_items={
+        "Get help": "https://github.com/compomics/lesSDRF/issues",
+        "Report a bug": "https://github.com/compomics/lesSDRF/issues",
+    },
+)
+
 def add_logo(logo_path, width, height):
     """Read and return a resized logo"""
     logo = Image.open(logo_path)
@@ -35,16 +47,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-    
-st.set_page_config(
-    page_title="Map local metadata",
-    layout="wide",
-    page_icon="🧪",
-    menu_items={
-        "Get help": "https://github.com/compomics/lesSDRF/issues",
-        "Report a bug": "https://github.com/compomics/lesSDRF/issues",
-    },
-)
+
 st.title("1. Map local metadata to SDRF")
 st.markdown(
     """If you have a local metadata file available, you can use this file to map the data to the required SDRF information. """

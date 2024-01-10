@@ -7,9 +7,6 @@ import re
 import warnings
 warnings.filterwarnings("ignore")
 
-from PIL import Image
-import base64
-import io
 def add_logo(logo_path, width, height):
     """Read and return a resized logo"""
     logo = Image.open(logo_path)

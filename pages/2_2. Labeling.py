@@ -11,6 +11,17 @@ from collections import defaultdict
 from PIL import Image
 import base64
 import io
+
+st.set_page_config(
+    page_title="Labeling",
+    layout="wide",
+    page_icon="🧪",
+    menu_items={
+        "Get help": "https://github.com/compomics/lesSDRF/issues",
+        "Report a bug": "https://github.com/compomics/lesSDRF/issues",
+    },
+)
+
 def add_logo(logo_path, width, height):
     """Read and return a resized logo"""
     logo = Image.open(logo_path)
@@ -38,15 +49,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.set_page_config(
-    page_title="Labeling",
-    layout="wide",
-    page_icon="🧪",
-    menu_items={
-        "Get help": "https://github.com/compomics/lesSDRF/issues",
-        "Report a bug": "https://github.com/compomics/lesSDRF/issues",
-    },
-)
+
 st.title("2. Labeling")
 st.markdown(
     """If a raw file contains multiple labels, every label will need to be annotated on a different row. Here you can map label information to your raw files. 
