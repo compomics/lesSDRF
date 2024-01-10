@@ -10,6 +10,9 @@ import ParsingModule
 import os
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode
 from streamlit_tree_select import tree_select
+from PIL import Image
+import base64
+import io
 
 st.set_page_config(
     page_title="Required columns",

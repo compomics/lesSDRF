@@ -3,7 +3,9 @@ import ParsingModule
 import pandas as pd
 import numpy as np
 import re
-
+from PIL import Image
+import base64
+import io
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -33,6 +35,7 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
 
 # Define the default button color (you can adjust this as desired)
 default_color = "#ffa478"
