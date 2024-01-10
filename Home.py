@@ -13,11 +13,9 @@ local_dir = os.path.dirname(__file__)
 from PIL import Image
 import base64
 import io
-im = Image.open('partial_logo.ico')
 st.set_page_config(
     page_title="lesSDRF",
     layout="wide",
-    page_icon=im,
     menu_items={
         "Get help": "https://github.com/compomics/lesSDRF/issues",
         "Report a bug": "https://github.com/compomics/lesSDRF/issues",
