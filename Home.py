@@ -35,7 +35,6 @@ st.sidebar.image(my_logo)
 #add a logo using ccs
 
 def add_logo():
-    my_logo = add_logo(logo_path="final_logo.png", width=149, height=58)
     st.markdown(
         """
         <style>
