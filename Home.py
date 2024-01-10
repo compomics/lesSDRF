@@ -29,25 +29,27 @@ def add_logo(logo_path, width, height):
     modified_logo = logo.resize((width, height))
     return modified_logo
 
+def get_base64_image(image):
+    img_buffer = io.BytesIO()
+    image.save(img_buffer, format="PNG")
+    img_str = base64.b64encode(img_buffer.getvalue()).decode()
+    return img_str
+
 my_logo = add_logo(logo_path="final_logo.png", width=149, height=58)
-st.sidebar.image(my_logo)
 
-#add a logo using ccs
-
-def add_logo():
-    st.markdown(
-        """
-        <style>
-            [data-testid="stSidebarNav"] {
-                background-image: url('final_logo.png');
-                background-repeat: no-repeat;
-                padding-top: 120px;
-                background-position: 20px 20px;
-            }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+st.markdown(
+    f"""
+    <style>
+        [data-testid="stSidebarNav"] {{
+            background-image: url('data:image/png;base64,{get_base64_image(my_logo)}');
+            background-repeat: no-repeat;
+            padding-top: 120px;
+            background-position: 20px 20px;
+        }}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 add_logo()
 #get local directory using os, and add the data folder to the path
 
