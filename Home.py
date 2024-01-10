@@ -51,7 +51,7 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-add_logo()
+
 #get local directory using os, and add the data folder to the path
 
 
