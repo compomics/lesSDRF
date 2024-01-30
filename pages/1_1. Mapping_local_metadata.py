@@ -53,7 +53,7 @@ st.markdown(
     """If you have a local metadata file available, you can use this file to map the data to the required SDRF information. """
 )
 st.markdown(
-    """**Important:** you can upload the file in csv, tsv, txt (tab-separated), or xlsx format.  
+    """**Important:** you can upload the file in csv, tsv or xlsx format.  
 The order of your raw file names should match the order in which you inputted them in the previous step"""
 )
 
@@ -77,15 +77,13 @@ with st.sidebar:
                  *The experimental metadata has been generated using lesSDRF and is available through ProteomeXchange with the dataset identifier [PXDxxxxxxx]*""")
 # Ask the user to upload their own metadata file and to map it to the columns of the template file
 metadata_sheet = st.file_uploader(
-    "Upload your local metadata file (.csv, .tsv, .txt (tab-separated), or .xls)", type=["csv", "tsv", "txt", "xlsx"]
+    "Upload your local metadata file (.csv, .tsv or .xls)", type=["csv", "tsv", "xlsx"]
 )
 if metadata_sheet is not None:
     file_extension = metadata_sheet.name.split(".")[-1]
     if file_extension == "csv":
         metadata_df = pd.read_csv(metadata_sheet)
     elif file_extension == "tsv":
-        metadata_df = pd.read_csv(metadata_sheet, sep="\t")
-    elif file_extension == "txt":
         metadata_df = pd.read_csv(metadata_sheet, sep="\t")
     elif file_extension == "xlsx":
         metadata_df = pd.read_excel(metadata_sheet)

@@ -13,9 +13,6 @@ local_dir = os.path.dirname(__file__)
 from PIL import Image
 import base64
 import io
-
-max_samples = 350
-
 st.set_page_config(
     page_title="lesSDRF",
     layout="wide",
@@ -108,12 +105,12 @@ st.markdown("""You are able to download your intermediate file at any given time
 Upload your intermediate SDRF file here:""")
 
 upload_df = st.file_uploader(
-    "Upload intermediate SDRF file", type=["tsv"], accept_multiple_files=False, help=f'Upload a previously saved SDRF file. It should be in tsv format and should not contain more than {max_samples} samples'
+    "Upload intermediate SDRF file", type=["tsv"], accept_multiple_files=False, help='Upload a previously saved SDRF file. It should be in tsv format and should not contain more than 250 samples'
 )
 if upload_df is not None:
     template_df = pd.read_csv(upload_df, sep='\t')
-    if template_df.shape[0]>max_samples:
-        st.error(f'Too many samples, please upload a maximum of {max_samples}')
+    if template_df.shape[0]>250:
+        st.error('Too many samples, please upload a maximum of 250 samples')
     else:
         st.write(template_df)
         st.session_state["template_df"] = template_df
@@ -153,8 +150,8 @@ if selected_species != "":
         #remove trailing and leading spaces
         uploaded_names = [name.strip() for name in uploaded_names]
         filenames.append(uploaded_names)
-    if len(filenames[0]) > max_samples:
-        st.error(f'Too many samples, please upload a maximum of {max_samples} samples')
+    if len(filenames[0]) > 250:
+        st.error('Too many samples, please upload a maximum of 250 samples')
     else:
         st.write(f"Added filenames: {filenames[0]}")
         ## Store filenames in the dataframe
