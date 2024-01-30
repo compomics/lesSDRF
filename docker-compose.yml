@@ -1,0 +1,28 @@
+ version: '3.7'
+ services:
+  lessdrf:
+    #env_file:
+    #  - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+          ignore:
+            - __pycache__
+            - Dockerfile
+        - action: rebuild
+          path: Dockerfile
+    image: lessdrf
+    container_name: lessdrf
+    restart: on-failure
+    ports:
+      - 8501:8501
+    networks:
+      - network
+ networks:
+   network:
+     driver: bridge
