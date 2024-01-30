@@ -518,11 +518,12 @@ if selection == "characteristics[organism]":
         tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(['Eukaryota', 'Archaea', 'Bacteria', 'Viruses', 'Unclassified', 'Other'])
         with tab1:
             ret= organism_selection("eukaryota")
-            if isinstance(ret, list):
-                for i in ret:
-                    st.session_state.selected_species.add(i)
-            else:
-                st.session_state.selected_species.add(ret)
+            if ret != None:
+                if isinstance(ret, list):
+                    for i in ret:
+                        st.session_state.selected_species.add(i)
+                else:
+                    st.session_state.selected_species.add(ret)
         with tab2:
             ret= organism_selection("archaea")
             if ret != None:
@@ -575,7 +576,7 @@ if selection == "characteristics[organism]":
         st.write(f"You selected the following species:{st.session_state['selected_species']}")       
     if len(st.session_state["selected_species"]) > number:
         st.error(f"""Number of selected species is {len(st.session_state['selected_species'])}, but this should be {number} according to the input above. 
-        Select the species you cant to remove from the list below""")
+        Select the species to remove from the list below""")
         # checkbox to remove species
         remove_species = set()
         for i, element in enumerate(st.session_state["selected_species"]):
