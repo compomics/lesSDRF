@@ -14,7 +14,7 @@ This will then open the Home screen of the app. The following steps can be found
 Alternatively, during development, you can use docker compose to build and run the app using the `watch` feature locally: 
 
 ```bash
-docker compose up --watch
+docker compose watch
 ```
 
 This will automatically sync file changes from your local machine to the docker container. Streamlit will automatically pick up file changes and will offer to reload the application.
