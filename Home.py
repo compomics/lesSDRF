@@ -69,7 +69,9 @@ def load_data():
             try:
                 with gzip.open(file_path, "rb") as f:
                     try:
-                        file_data = json.load(f)
+                        json_bytes = f.read()
+                        json_str = json_bytes.decode('utf-8')
+                        file_data = json.loads(json_str)
                         filename_key = filename.replace(".json.gz", "")
                         data[filename_key] = file_data
                     except json.JSONDecodeError:
