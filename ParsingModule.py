@@ -365,6 +365,13 @@ def convert_df(df):
     cols = df.columns.tolist()
     #get all elements from the list that start with "characteristic" and sort them alphabetically
     characteristic_cols = sorted([i for i in cols if i.startswith("characteristic")])
+    #first elements in characteric_cols should always be characteristics[organism]	characteristics[organism part]
+    if "characteristics[organism]" in characteristic_cols:
+        characteristic_cols.remove("characteristics[organism]")
+        characteristic_cols.insert(0, "characteristics[organism]")
+    if "characteristics[organism part]" in characteristic_cols:
+        characteristic_cols.remove("characteristics[organism part]")
+        characteristic_cols.insert(1, "characteristics[organism part]")
     comment_cols = sorted([i for i in cols if i.startswith("comment")])
     factor_value_cols = sorted([i for i in cols if i.startswith("factor")])
     #get all columns that don't start with "characteristic" or "comment"
