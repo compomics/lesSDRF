@@ -516,6 +516,7 @@ if selection == "characteristics[organism]":
         st.write(button, unsafe_allow_html=True)        
 
         tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(['Eukaryota', 'Archaea', 'Bacteria', 'Viruses', 'Unclassified', 'Other'])
+        st.write(st.session_state.selected_species)
         with tab1:
             ret= organism_selection("eukaryota")
             if ret != None:
@@ -738,7 +739,8 @@ if selection == "comment[modification parameters]":
             )
         with col3:
             ta_sel = st.multiselect("Select the target amino acid", ta, key=f"ta_{i}")
-
+            ta_sel = ",".join(ta_sel)
+            
         if i == "Other":
             col4, col5, col6 = st.columns(3)
             with col4:
