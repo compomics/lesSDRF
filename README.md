@@ -11,6 +11,16 @@ The parsed ontologies used in the streamlit app are in the data folder. Every to
 To start the app locally you run: ** streamlit run Home.py **
 This will then open the Home screen of the app. The following steps can be found in the pages folder and are numbered accordingly.
 
+Alternatively, during development, you can use docker compose to build and run the app using the `watch` feature locally: 
+
+```bash
+docker compose watch
+```
+
+This will automatically sync file changes from your local machine to the docker container. Streamlit will automatically pick up file changes and will offer to reload the application.
+
+Open your browser and go to http://localhost:8501 to see the app running.
+
 ### lesSDRF v0.1.0 has the following ontologies incorporated:<br>
 
     Streamlit version 1.19.0 and Python version 3.9.13<br>
