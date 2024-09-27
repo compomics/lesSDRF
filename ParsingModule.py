@@ -144,7 +144,7 @@ def transform_nested_dict_to_tree(d, parent_label=None, parent_value=None):
 
 def store_as_gzipped_json(data, filename):
     """ "Given a datatype to store and the filename, this function stores the data as a gzipped json file in .\\data"""
-    path = (fill_in_from
+    path = (
         ".\\data\\"
         + filename
         + ".json.gz"
