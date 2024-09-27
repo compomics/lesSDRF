@@ -68,9 +68,12 @@ def load_data():
         if filename.endswith(".json.gz"):
             try:
                 with gzip.open(file_path, "rb") as f:
-                    file_data = json.load(f)
-                    filename_key = filename.replace(".json.gz", "")
-                    data[filename_key] = file_data
+                    try:
+                        file_data = json.load(f)
+                        filename_key = filename.replace(".json.gz", "")
+                        data[filename_key] = file_data
+                    except json.JSONDecodeError:
+                        st.write(f"Error decoding JSON in file {file_path}")
             except gzip.BadGzipFile:
                 st.write(f"Error reading file {file_path}: not a gzipped file")
         else:
