@@ -376,7 +376,9 @@ def convert_df(df):
     factor_value_cols = sorted([i for i in cols if i.startswith("factor")])
     #get all columns that don't start with "characteristic" or "comment"
     other_cols = [i for i in cols if i not in characteristic_cols and i not in comment_cols and i not in factor_value_cols and i not in ["source name"]]
-    #reorder the columns
+    #reorder the columns, add "source name" if it is missing
+    if "source name" not in df:
+        df["source name"] = ""
     new_cols = ["source name"] + characteristic_cols + other_cols + comment_cols + factor_value_cols
     df = df[new_cols]
     #if a column name contains _ followed by a number, remove the underscore and the number
