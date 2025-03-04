@@ -4,7 +4,7 @@ warnings.filterwarnings("ignore")
 import pandas as pd
 import numpy as np
 import re
-import ParsingModule
+import application.ParsingModule as ParsingModule
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode
 from streamlit_tree_select import tree_select
 from collections import defaultdict
@@ -34,7 +34,7 @@ def get_base64_image(image):
     img_str = base64.b64encode(img_buffer.getvalue()).decode()
     return img_str
 
-my_logo = add_logo(logo_path="final_logo.png", width=149, height=58)
+my_logo = add_logo(logo_path="application/final_logo.png", width=149, height=58)
 
 st.markdown(
     f"""

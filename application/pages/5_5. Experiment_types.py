@@ -1,5 +1,5 @@
 import streamlit as st
-import ParsingModule
+import application.ParsingModule as ParsingModule
 import pandas as pd
 import numpy as np
 import re
@@ -53,7 +53,7 @@ def get_base64_image(image):
     img_str = base64.b64encode(img_buffer.getvalue()).decode()
     return img_str
 
-my_logo = add_logo(logo_path="final_logo.png", width=149, height=58)
+my_logo = add_logo(logo_path="application/final_logo.png", width=149, height=58)
 
 st.markdown(
     f"""

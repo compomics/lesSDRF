@@ -1,3 +1,4 @@
+__pycache__/
 
 ontology/cl.owl
 ontology/hancestro.owl
@@ -8,3 +9,13 @@ ontology/ms.owl
 ontology/efo.json
 ontology/ncbitaxon.obo
 ontology/ncbitaxon.owl
+
+# pyinstaller artifacts
+build/
+dist/
+# virtual environment
+lessdrf-desktop/
+
+# Mac OS
+.DS_Store
+
