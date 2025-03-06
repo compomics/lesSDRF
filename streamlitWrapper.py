@@ -17,6 +17,7 @@ if __name__ == "__main__":
 
     flag_options = {
         "global.developmentMode": False,
+        "server.headless": True
     }
 
     streamlit.web.bootstrap.load_config_options(flag_options=flag_options)
