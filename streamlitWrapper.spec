@@ -1,20 +1,12 @@
 # -*- mode: python ; coding: utf-8 -*-
-from PyInstaller.utils.hooks import copy_metadata
-
-datas = [("lessdrf-desktop/lib/python3.12/site-packages/streamlit/runtime", "./streamlit/runtime")]
-datas += [("lessdrf-desktop/lib/python3.12/site-packages/streamlit/static", "./streamlit/static")]
-datas += [("lessdrf-desktop/lib/python3.12/site-packages/st_aggrid/frontend", "./st_aggrid/frontend")]
-datas += [("lessdrf-desktop/lib/python3.12/site-packages/streamlit_tree_select/frontend", "./streamlit_tree_select/frontend")]
-datas += [("application", "./application")]
-datas += copy_metadata('streamlit')
 
 
 a = Analysis(
     ['streamlitWrapper.py'],
-    pathex=['lessdrf-desktop/lib/python3.12/site-packages'],
+    pathex=[],
     binaries=[],
-    datas=datas,
-    hiddenimports=["pronto", "st_aggrid", "streamlit_tree_select"],
+    datas=[],
+    hiddenimports=[],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
