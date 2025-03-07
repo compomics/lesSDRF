@@ -1,0 +1,43 @@
+{
+    "appId": "lessdrf-app",
+    "asar": false,
+    "directories": {
+        "output": "electron-dist"
+    },
+    "mac": {
+        "target": [
+            "dmg"
+        ],
+        "artifactName": "lessdrf-app"
+    },
+    "nsis": {
+        "oneClick": false,
+        "perMachine": false,
+        "allowToChangeInstallationDirectory": true
+    },
+    "win": {
+        "target": "nsis",
+        "artifactName": "lessdrf-app"
+    },
+    "linux": {
+        "target": [
+            "AppImage"
+        ],
+        "artifactName": "lessdrf-app"
+    },
+    "files": [
+        "main.js",
+        "build/",
+        "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+        "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+        "!**/node_modules/*.d.ts",
+        "!**/node_modules/.bin",
+        "!src",
+        "!config",
+        "!README.md",
+        "!scripts",
+        "!build/renderer",
+        "!dist",
+        "!lessdrf-desktop/**/*"
+    ]
+}
