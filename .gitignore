@@ -19,5 +19,7 @@ lessdrf-desktop/
 # Mac OS
 .DS_Store
 
-/node_modules
+node_modules/
 
+# electron
+electron-dist/
