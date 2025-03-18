@@ -134,7 +134,7 @@ if selected_species != "":
     folder_path = os.path.join(local_dir, "templates")
     # Load the corresponding CSV file based on the selected species
     template_df = pd.read_csv(
-        f"{folder_path}/sdrf-{selected_species}.tsv",
+        f"{folder_path}/sdrf-{selected_species}.sdrf.tsv",
         sep="\t",
     )
     template_df["comment[modification parameters]"] = np.nan
