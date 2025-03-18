@@ -410,7 +410,15 @@ def convert_df(df):
     elif is_valid:
         st.success("✅ SDRF validation passed!")
     else:
-        st.warning(f"⚠️ SDRF validation failed! You can still download the file, but it may be invalid.\n\n**Details:**\n{message}")
+        # Filter out 'nan' errors in 'characteristics[organism]'
+        filtered_message = "\n".join(
+            line for line in message.split("\n") 
+            if '"nan"' not in line and 'characteristics[organism]' not in line
+        ).strip()
+
+        if filtered_message:  # Show warning only if there are remaining errors
+            st.warning(f"⚠️ SDRF validation failed! You can still download the file, but it may be invalid.\n\n**Details:**\n{filtered_message}")
+
 
     return df.to_csv(index=False, sep="\t").encode("utf-8")
 
