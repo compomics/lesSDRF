@@ -89,6 +89,8 @@ def clean_final_str(final_str):
     #if it ends on TA=, not followed by anything remove TA=
     if final_str.endswith("TA="):
         final_str = final_str[:-3]
+    #add a space before each ;
+    final_str = final_str.replace(';', '; ')
     return final_str
 
 # Define the default button color (you can adjust this as desired)
