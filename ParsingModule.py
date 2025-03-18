@@ -307,19 +307,6 @@ def validate_sdrf(file_path):
 
 
 
-def convert_df(df):
-    file_path = "temp_sdrf.tsv"
-    df.to_csv(file_path, index=False, sep="\t", encoding="utf-8")
-    is_valid, message = validate_sdrf(file_path)
-
-    if is_valid is None:
-        st.error(message)
-    elif is_valid:
-        st.success("✅ SDRF validation passed!")
-    else:
-        st.warning(f"⚠️ SDRF validation failed! You can still download the file, but it may be invalid.\n\n**Details:**\n{message}")
-
-    return df.to_csv(index=False, sep="\t").encode("utf-8")
 
 # function check_df_for_ontology_terms
 # checks if the dataframe contains ontology terms
@@ -414,6 +401,18 @@ def convert_df(df):
     df.columns = [re.sub(r"(_\d+)", "", i) for i in df.columns]
     #remove leading and trailing whitespaces from all columns
     df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+    file_path = "temp_sdrf.tsv"
+    df.to_csv(file_path, index=False, sep="\t", encoding="utf-8")
+    is_valid, message = validate_sdrf(file_path)
+
+    if is_valid is None:
+        st.error(message)
+    elif is_valid:
+        st.success("✅ SDRF validation passed!")
+    else:
+        st.warning(f"⚠️ SDRF validation failed! You can still download the file, but it may be invalid.\n\n**Details:**\n{message}")
+
+    return df.to_csv(index=False, sep="\t").encode("utf-8")
     return df.to_csv(index=False, sep="\t").encode("utf-8")
 
 
