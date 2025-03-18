@@ -10,6 +10,7 @@ import pandas as pd
 import re
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode
 from streamlit_tree_select import tree_select
+import subprocess
 
 def help():
     """This module contains all parsable functions necessary to build the SDRF GUI"""
@@ -286,9 +287,39 @@ def multiple_ontology_tree(column, element_list, nodes, df, multiple_in_one = Fa
         df = grid_return["data"]
     df.replace("empty", np.nan, inplace=True)   
     return df
-    
+
+
+def validate_sdrf(file_path):
+    """Runs SDRF validation and returns success status & messages."""
+    try:
+        result = subprocess.run(
+            ["parse_sdrf", "validate-sdrf", "--sdrf_file", file_path],
+            capture_output=True,
+            text=True,
+            check=False  # Prevent exception on failure
+        )
+        if result.returncode == 0:
+            return True, result.stdout.strip()
+        else:
+            return False, result.stdout.strip()
+    except FileNotFoundError:
+        return None, "SDRF validation tool not found. Install `sdrf-pipelines` via `pip install sdrf-pipelines`."
+
+
+
 def convert_df(df):
-    return df.to_csv(index=False).encode("utf-8")
+    file_path = "temp_sdrf.tsv"
+    df.to_csv(file_path, index=False, sep="\t", encoding="utf-8")
+    is_valid, message = validate_sdrf(file_path)
+
+    if is_valid is None:
+        st.error(message)
+    elif is_valid:
+        st.success("✅ SDRF validation passed!")
+    else:
+        st.warning(f"⚠️ SDRF validation failed! You can still download the file, but it may be invalid.\n\n**Details:**\n{message}")
+
+    return df.to_csv(index=False, sep="\t").encode("utf-8")
 
 # function check_df_for_ontology_terms
 # checks if the dataframe contains ontology terms
