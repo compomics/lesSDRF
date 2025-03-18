@@ -413,8 +413,6 @@ def convert_df(df):
         st.warning(f"⚠️ SDRF validation failed! You can still download the file, but it may be invalid.\n\n**Details:**\n{message}")
 
     return df.to_csv(index=False, sep="\t").encode("utf-8")
-    return df.to_csv(index=False, sep="\t").encode("utf-8")
-
 
 
 def autocomplete_species_search(taxum_list, search_term):
