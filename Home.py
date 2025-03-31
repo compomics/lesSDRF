@@ -110,12 +110,12 @@ st.markdown("""You are able to download your intermediate file at any given time
 Upload your intermediate SDRF file here:""")
 
 upload_df = st.file_uploader(
-    "Upload intermediate SDRF file", type=["tsv"], accept_multiple_files=False, help='Upload a previously saved SDRF file. It should be in tsv format and should not contain more than 5000 samples'
+    "Upload intermediate SDRF file", type=["tsv"], accept_multiple_files=False, help='Upload a previously saved SDRF file. It should be in tsv format and should not contain more than 500 samples'
 )
 if upload_df is not None:
     template_df = pd.read_csv(upload_df, sep='\t')
-    if template_df.shape[0]>5000:
-        st.error('Too many samples, please upload a maximum of 5000 samples')
+    if template_df.shape[0]>500:
+        st.error('Too many samples, please upload a maximum of 500 samples')
     else:
         st.write(template_df)
         st.session_state["template_df"] = template_df
@@ -143,7 +143,7 @@ if selected_species != "":
 
     # Ask user to upload filenames of their samples
     filenames = []
-    uploaded_names = st.text_input("Input raw file names as a comma or tab separated list", help="The raw file names will be input in the comment[data file] column and are the basis of your SDRF file. Input maximum 5000 raw files")
+    uploaded_names = st.text_input("Input raw file names as a comma or tab separated list", help="The raw file names will be input in the comment[data file] column and are the basis of your SDRF file. Input maximum 500 raw files")
     if uploaded_names is not None:
         #if comma separated, split on comma, if tab separated, split on tab
         if "," in uploaded_names:
@@ -155,8 +155,8 @@ if selected_species != "":
         #remove trailing and leading spaces
         uploaded_names = [name.strip() for name in uploaded_names]
         filenames.append(uploaded_names)
-    if len(filenames[0]) > 5000:
-        st.error('Too many samples, please upload a maximum of 5000 samples')
+    if len(filenames[0]) > 500:
+        st.error('Too many samples, please upload a maximum of 500 samples')
     else:
         st.write(f"Added filenames: {filenames[0]}")
         ## Store filenames in the dataframe
