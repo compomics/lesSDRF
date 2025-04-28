@@ -152,6 +152,8 @@ if selected_species != "":
             uploaded_names = uploaded_names.split("\t")
         elif " " in uploaded_names:
             uploaded_names = uploaded_names.split(" ")
+        else:
+            uploaded_names = [uploaded_names]
         #remove trailing and leading spaces
         uploaded_names = [name.strip() for name in uploaded_names]
         filenames.append(uploaded_names)
