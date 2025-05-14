@@ -10,7 +10,6 @@ import pandas as pd
 import re
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode
 from streamlit_tree_select import tree_select
-import subprocess
 
 def help():
     """This module contains all parsable functions necessary to build the SDRF GUI"""
@@ -145,7 +144,7 @@ def transform_nested_dict_to_tree(d, parent_label=None, parent_value=None):
 
 def store_as_gzipped_json(data, filename):
     """ "Given a datatype to store and the filename, this function stores the data as a gzipped json file in .\\data"""
-    path = (
+    path = (fill_in_from
         ".\\data\\"
         + filename
         + ".json.gz"
@@ -194,8 +193,6 @@ def fill_in_from_list(df, column, values_list=None, multiple_in_one=False):
             builder.configure_column(column,editable=True,cellEditor="agSelectCellEditor",cellEditorParams={"values": values_list}, cellStyle = cell_style)
         builder.configure_grid_options(enableRangeSelection=True, enableFillHandle=True, suppressMovableColumns=True, singleClickEdit=True)
         gridOptions = builder.build()
-        gridOptions["enableFillHandle"] = True
-        gridOptions["enableRangeSelection"] = True 
         grid_return = AgGrid(
             df,
             gridOptions=gridOptions,
@@ -208,8 +205,6 @@ def fill_in_from_list(df, column, values_list=None, multiple_in_one=False):
         builder.configure_column(column, editable=True, cellStyle = cell_style)
         builder.configure_grid_options(enableRangeSelection=True, enableFillHandle=True, suppressMovableColumns=True, singleClickEdit=True)
         gridOptions = builder.build()
-        gridOptions["enableFillHandle"] = True
-        gridOptions["enableRangeSelection"] = True 
         grid_return = AgGrid(
             df,
             gridOptions=gridOptions,
@@ -291,26 +286,9 @@ def multiple_ontology_tree(column, element_list, nodes, df, multiple_in_one = Fa
         df = grid_return["data"]
     df.replace("empty", np.nan, inplace=True)   
     return df
-
-
-def validate_sdrf(file_path):
-    """Runs SDRF validation and returns success status & messages."""
-    try:
-        result = subprocess.run(
-            ["parse_sdrf", "validate-sdrf", "--sdrf_file", file_path],
-            capture_output=True,
-            text=True,
-            check=False  # Prevent exception on failure
-        )
-        if result.returncode == 0:
-            return True, result.stdout.strip()
-        else:
-            return False, result.stdout.strip()
-    except FileNotFoundError:
-        return None, "SDRF validation tool not found. Install `sdrf-pipelines` via `pip install sdrf-pipelines`."
-
-
-
+    
+def convert_df(df):
+    return df.to_csv(index=False).encode("utf-8")
 
 # function check_df_for_ontology_terms
 # checks if the dataframe contains ontology terms
@@ -382,7 +360,7 @@ def convert_df(df):
     Leading and trailing whitespaces are removed from all columns
     It then converts the dataframe to a tsv file and downloads it
     It also adds an comment[tool metadata] to indicate it was built with lesSDRF and ontology versioning"""
-    df["comment[tool metadata]"] = "lesSDRF v0.1.1"
+    df["comment[tool metadata]"] = "lesSDRF v0.1.0"
     #sort dataframe so that "source name" is the first column
     cols = df.columns.tolist()
     #get all elements from the list that start with "characteristic" and sort them alphabetically
@@ -405,26 +383,8 @@ def convert_df(df):
     df.columns = [re.sub(r"(_\d+)", "", i) for i in df.columns]
     #remove leading and trailing whitespaces from all columns
     df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
-    file_path = "temp_sdrf.tsv"
-    df.to_csv(file_path, index=False, sep="\t", encoding="utf-8")
-    is_valid, message = validate_sdrf(file_path)
-
-    if is_valid is None:
-        st.error(message)
-    elif is_valid:
-        st.success("✅ SDRF validation passed!")
-    else:
-        # Filter out 'nan' errors in 'characteristics[organism]'
-        filtered_message = "\n".join(
-            line for line in message.split("\n") 
-            if '"nan"' not in line and 'characteristics[organism]' not in line
-        ).strip()
-
-        if filtered_message:  # Show warning only if there are remaining errors
-            st.warning(f"⚠️ SDRF validation failed! You can still download the file, but it may be invalid.\n\n**Details:**\n{filtered_message}")
-
-
     return df.to_csv(index=False, sep="\t").encode("utf-8")
+
 
 
 def autocomplete_species_search(taxum_list, search_term):
@@ -455,186 +415,3 @@ def autocomplete_species_search(taxum_list, search_term):
             st.write("Too many closely related options to display (>500). Please refine your search.")
         if len(filtered_options) == 0:
             st.write("No options found. Please refine your search.")
-
-#------- Refactoring functions
-def structure_questions(df, column):
-    """
-    Ask whether multiple values or multiple-in-one exist → modify DataFrame structure accordingly (add columns).
-    Returns:
-        - modified DataFrame
-        - list of columns to edit
-        - number of required terms
-    """
-    df = df.copy()
-    columns_to_edit = [column]
-    index = df.columns.get_loc(column) if column in df.columns else 0
-
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        multiple = st.radio(f"Are there multiple {column}s in your data?", ("No", "Yes"))
-    if multiple == "Yes":
-        with col2:
-            num_required = st.number_input(f"How many different {column}s?", min_value=1, step=1)
-        with col3:
-            multi_in_one = st.radio(f"Multiple {column}s within one sample?", ("No", "Yes"))
-            if multi_in_one == "Yes":
-                for i in range(num_required - 1):
-                    new_col = f"{column}_{i+1}"
-                    if new_col not in df.columns:
-                        df.insert(index + 1 + i, new_col, "")
-                    columns_to_edit.append(new_col)
-    else:
-        num_required = 1
-
-    return df, columns_to_edit, num_required
-
-def select_ontology_terms(column, ontology_elements, ontology_tree, num_required=1):
-    """
-    UI for selecting ontology terms via autocomplete and tree.
-    Returns:
-        - list of selected ontology terms (strings)
-    """
-    with st.form(f"Select {column} ontology terms", clear_on_submit=True):
-        col1, col2 = st.columns(2)
-        selected_auto = col1.multiselect(
-            f"Select {column} from autocomplete:",
-            sorted(set(ontology_elements)),
-            max_selections=num_required
-        )
-        
-        with col2:
-            tree_result = tree_select(ontology_tree, no_cascade=True, expand_on_click=True, check_model="leaf")
-            selected_tree = tree_result["checked"] if tree_result and "checked" in tree_result else []
-
-        combined = selected_auto + selected_tree
-        combined = [s.split(",")[-1] for s in combined if s]
-
-        submit = st.form_submit_button("Confirm selection")
-
-    if submit:
-        if len(combined) != num_required:
-            st.error(f"Please select exactly {num_required} values.")
-            return []
-        if len(combined) == 1:
-            st.success(f"Selected: {combined}. Only one option, will be automatically filled in. Just click Update")
-        else:
-            st.success(f"Selected: {combined}. Multiple options, use drop down menu within the table and click Update when finished")
-        return combined
-    return None
-
-def edit_dataframe_ontology_aggrid(df, columns_to_edit, dropdown_options):
-    """
-    Editable AgGrid table for ontology input:
-    - if len(dropdown_options)==1 → autofill column
-    - if len(dropdown_options)>1 → dropdown editor
-    - if dropdown_options is None → free text input
-    """
-    df = df.copy()
-    df.fillna("", inplace=True)
-    cell_style = {"background-color": "#ffa478"}
-
-    builder = GridOptionsBuilder.from_dataframe(df)
-    st.write(len(dropdown_options))
-    # === CASE 1: autofill ===
-    if dropdown_options and len(dropdown_options) == 1:
-        autofill_value = dropdown_options[0]
-        for col in columns_to_edit:
-            df[col] = autofill_value
-        st.success(f"Filled columns {columns_to_edit} with value: {autofill_value}")
-        return df  # return immediately → no need to edit
-
-    # === CASE 2 & 3: configure editors ===
-    for col in df.columns:
-        if col in columns_to_edit:
-            if dropdown_options and len(dropdown_options) > 1:
-                # dropdown editor
-                builder.configure_column(
-                    col,
-                    editable=True,
-                    cellEditor="agSelectCellEditor",
-                    cellEditorParams={"values": [""] + dropdown_options + ["NA"]},
-                    cellStyle=cell_style
-                )
-            else:
-                # free text editor
-                builder.configure_column(
-                    col,
-                    editable=True,
-                    cellEditor="agTextCellEditor",
-                    cellStyle=cell_style
-                )
-        else:
-            builder.configure_column(col, editable=False)
-
-    builder.configure_grid_options(
-        enableRangeSelection=True,
-        enableFillHandle=True,
-        suppressMovableColumns=True,
-        singleClickEdit=True
-    )
-
-    gridOptions = builder.build()
-
-    st.write(f"Fill in values for {columns_to_edit}. Use dropdown or fill handle. Click 'Update' in table to apply.")
-
-    grid_return = AgGrid(
-        df,
-        gridOptions=gridOptions,
-        update_mode=GridUpdateMode.MANUAL,  # must click Update button
-        data_return_mode=DataReturnMode.AS_INPUT,
-        fit_columns_on_grid_load=True
-    )
-
-    updated_df = grid_return["data"]
-    updated_df.replace("", np.nan, inplace=True)
-
-    return updated_df
-
-def build_gridOptions_ontology_aggrid(df, columns_to_edit, dropdown_options):
-    """
-    Builds GridOptions for ontology editing:
-    - if len(dropdown_options)==1 → return autofill value (skip gridOptions)
-    - if len(dropdown_options)>1 → dropdown editor
-    - if dropdown_options is None → free text editor
-    Returns:
-        - gridOptions
-        - optional: autofill_value
-    """
-    builder = GridOptionsBuilder.from_dataframe(df)
-    cell_style = {"background-color": "#ffa478"}
-
-    # === CASE 1: autofill → no editor
-    if dropdown_options and len(dropdown_options) == 1:
-        return None, dropdown_options[0]
-
-    # === CASE 2 & 3: configure editable columns
-    for col in df.columns:
-        if col in columns_to_edit:
-            if dropdown_options and len(dropdown_options) > 1:
-                builder.configure_column(
-                    col,
-                    editable=True,
-                    cellEditor="agSelectCellEditor",
-                    cellEditorParams={"values": [""] + dropdown_options + ["NA"]},
-                    cellStyle=cell_style
-                )
-            else:
-                builder.configure_column(
-                    col,
-                    editable=True,
-                    cellEditor="agTextCellEditor",
-                    cellStyle=cell_style
-                )
-        else:
-            builder.configure_column(col, editable=False)
-
-    builder.configure_grid_options(
-        enableRangeSelection=True,
-        enableFillHandle=True,
-        suppressMovableColumns=True,
-        singleClickEdit=True
-    )
-
-    gridOptions = builder.build()
-
-    return gridOptions, None

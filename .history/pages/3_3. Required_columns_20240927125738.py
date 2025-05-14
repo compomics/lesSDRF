@@ -84,15 +84,6 @@ def organism_selection(species):
     if ret != None:
         return ret
 
-def clean_final_str(final_str):
-    final_str  = final_str.replace(';;', ';')
-    #if it ends on TA=, not followed by anything remove TA=
-    if final_str.endswith("TA="):
-        final_str = final_str[:-3]
-    #add a space before each ;
-    final_str = final_str.replace(';', '; ')
-    return final_str
-
 # Define the default button color (you can adjust this as desired)
 default_color = "#ff4b4b"
 
@@ -695,6 +686,7 @@ if selection == "comment[precursor mass tolerance]":
     update_session_state(df)
   
 
+
 if selection == "characterics[synthetic peptide]":
     st.subheader(
         "If the sample is a synthetic peptide library, indicate this by selecting *synthetic* or *not synthetic*"
@@ -748,7 +740,7 @@ if selection == "comment[modification parameters]":
         with col3:
             ta_sel = st.multiselect("Select the target amino acid", ta, key=f"ta_{i}")
             ta_sel = ",".join(ta_sel)
-
+            
         if i == "Other":
             col4, col5, col6 = st.columns(3)
             with col4:
@@ -761,7 +753,6 @@ if selection == "comment[modification parameters]":
                 mass = st.text_input("Input the molecular mass")
 
             final_str = f"NT={name};MT={mt_sel};PP={pp_sel};TA={ta_sel};CF={form};MM={mass}"
-            final_str = clean_final_str(final_str)
             st.session_state["sdrf_mods"].append(final_str)
             st.write(
                 f""" **Final SDRF notation of modification:**  
@@ -769,7 +760,6 @@ if selection == "comment[modification parameters]":
             )
         else:
             final_str = f"{unimod[i]};MT={mt_sel};PP={pp_sel};TA={ta_sel}"
-            final_str = clean_final_str(final_str)
             st.session_state["sdrf_mods"].append(final_str)
             st.write(
                 f"""**Final SDRF notation of modification:**  

@@ -1,0 +1,8 @@
+source name	characteristics[organism]	characteristics[organism part]	characteristics[biological replicate]	characteristics[cell line]	characteristics[cell type]	characteristics[disease]	assay name	 technology type	comment[cleavage agent details]	comment[cleavage agent details]	comment[data file]	comment[fraction identifier]	comment[fragment mass tolerance]	comment[instrument]	comment[label]	comment[modification parameters]	comment[precursor mass tolerance]	comment[technical replicate]	comment[tool metadata]
+None	None	None	None	None	None	None	None	None	NT=2-iodobenzoate		a	None		None	None			None	lesSDRF v0.1.0
+None	None	None	None	None	None	None	None	None	None		b	None		None	None			None	lesSDRF v0.1.0
+None	None	None	None	None	None	None	None	None	None		c	None		None	None			None	lesSDRF v0.1.0
+None	None	None	None	None	None	None	None	None	None		d	None		None	None			None	lesSDRF v0.1.0
+None	None	None	None	None	None	None	None	None	None		e	None		None	None			None	lesSDRF v0.1.0
+None	None	None	None	None	None	None	None	None	None		f	None		None	None			None	lesSDRF v0.1.0
+None	None	None	None	None	None	None	None	None	None		g	None		None	None			None	lesSDRF v0.1.0
