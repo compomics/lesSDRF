@@ -90,8 +90,8 @@ upload_df = st.file_uploader(
 
 if upload_df is not None:
     template_df = pd.read_csv(upload_df, sep='\t')
-    if template_df.shape[0] > 500:
-        st.error('Too many samples, please upload a maximum of 500 samples')
+    if template_df.shape[0] > 1000:
+        st.error('Too many samples, please upload a maximum of 1000 samples')
     else:
         builder = GridOptionsBuilder.from_dataframe(template_df)
         builder.configure_pagination(paginationAutoPageSize=False, paginationPageSize=500)
