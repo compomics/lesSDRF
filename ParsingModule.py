@@ -1,5 +1,5 @@
-import pronto
-from pronto import Ontology
+# import pronto
+# from pronto import Ontology
 from collections import defaultdict
 import json
 import gzip
