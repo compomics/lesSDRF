@@ -192,7 +192,10 @@ def fill_in_from_list(df, column, values_list=None, multiple_in_one=False):
             builder.configure_columns(columns_to_adapt, editable=True, cellEditor="agSelectCellEditor", cellEditorParams={"values": values_list}, cellStyle = cell_style)
         else: # if not multiple_in_one, just add the column
             builder.configure_column(column,editable=True,cellEditor="agSelectCellEditor",cellEditorParams={"values": values_list}, cellStyle = cell_style)
-        builder.configure_grid_options(enableRangeSelection=True, enableFillHandle=True, suppressMovableColumns=True, singleClickEdit=True)
+        builder.configure_grid_options(enableRangeSelection=True, 
+        enableFillHandle=True, 
+        suppressMovableColumns=True, 
+        singleClickEdit=True)
         gridOptions = builder.build()
         gridOptions["enableFillHandle"] = True
         gridOptions["enableRangeSelection"] = True 
@@ -206,7 +209,8 @@ def fill_in_from_list(df, column, values_list=None, multiple_in_one=False):
               
     elif values_list is None: # if there is no list of values, make the column editable
         builder.configure_column(column, editable=True, cellStyle = cell_style)
-        builder.configure_grid_options(enableRangeSelection=True, enableFillHandle=True, suppressMovableColumns=True, singleClickEdit=True)
+        builder.configure_grid_options(
+            enableRangeSelection=True, enableFillHandle=True, suppressMovableColumns=True, singleClickEdit=True)
         gridOptions = builder.build()
         gridOptions["enableFillHandle"] = True
         gridOptions["enableRangeSelection"] = True 
@@ -214,7 +218,8 @@ def fill_in_from_list(df, column, values_list=None, multiple_in_one=False):
             df,
             gridOptions=gridOptions,
             update_mode=GridUpdateMode.MANUAL,
-            data_return_mode=DataReturnMode.AS_INPUT)
+            height=800,
+            data_return_mode=DataReturnMode.AS_INPUT, custom_css={"#gridToolBar": {"padding-bottom": "0px !important",}})
         df = grid_return["data"]
         df.replace("empty", np.nan, inplace=True)
     return df

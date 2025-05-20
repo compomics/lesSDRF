@@ -72,7 +72,15 @@ def edit_mapping_table_aggrid(df, label_options):
     cell_style = {"background-color": "#ffa478"}
 
     builder = GridOptionsBuilder.from_dataframe(df)
-    builder.configure_pagination(paginationAutoPageSize=False, paginationPageSize=500)
+    builder.configure_grid_options(
+        pagination=True,
+        paginationPageSize=500,
+        enableRangeSelection=True,
+        enableFillHandle=True,
+        suppressMovableColumns=True,
+        singleClickEdit=True
+    )
+    # builder.configure_pagination(paginationAutoPageSize=False, paginationPageSize=500)
     builder.configure_default_column(filterable=True, sortable=True, resizable=True)
     for col in df.columns:
         if col == "File name":
@@ -86,13 +94,7 @@ def edit_mapping_table_aggrid(df, label_options):
                 cellStyle=cell_style
             )
 
-    builder.configure_grid_options(
-        enableRangeSelection=True,
-        enableFillHandle=True,
-        suppressMovableColumns=True,
-        singleClickEdit=True,
-        pagination = True
-    )
+
 
     gridOptions = builder.build()
 
@@ -105,9 +107,7 @@ def edit_mapping_table_aggrid(df, label_options):
         height=600
     )
 
-    updated_df = grid_return["data"]
-
-    return updated_df
+    return grid_return["data"]
 
 st.title("2. Labeling")
 st.markdown(
@@ -186,12 +186,11 @@ else:
     # Create mapping table: each file = row; assigned label = editable dropdown
     if "mapping_table" not in st.session_state:
         initial_data = {
-            "File name": template_df[COMMENT_DATA_FILE_COL].unique()
+            "File name": template_df[COMMENT_DATA_FILE_COL]
         }
         for col in label_column_names:
-            initial_data[col] = [""] * template_df[COMMENT_DATA_FILE_COL].nunique()
+            initial_data[col] = [""] * len(template_df[COMMENT_DATA_FILE_COL].values.tolist())
         st.session_state["mapping_table"] = pd.DataFrame(initial_data)
-
     column_config = {
     "File name": st.column_config.Column(
         label="File name",
@@ -199,29 +198,27 @@ else:
         required=True
     )
     }
-
-    for col in label_column_names:
-        column_config[col] = st.column_config.SelectboxColumn(
-            options=[""] + st.session_state["all_selected_labels"] + ["label free sample"],
-            required=False
-        )
-    
-
     # 3Show editable table
     edited_mapping_df = edit_mapping_table_aggrid(st.session_state["mapping_table"], st.session_state["all_selected_labels"])
     # Detect grid update by comparing to session_state
     if not edited_mapping_df.equals(st.session_state["mapping_table"]):
         st.session_state["mapping_table"] = edited_mapping_df
 
-        # Automatically apply labels once the user clicks 'Update' inside AgGrid
-        edited_mapping_df.replace("", np.nan, inplace=True)
-        label_dict = defaultdict(list)
-        for _, row in edited_mapping_df.iterrows():
-            file = row["File name"]
-            for col in label_column_names:
-                label = row[col]
-                if pd.notnull(label) and label != "":
-                    label_dict[file].append(label)
+        label_assignments = (
+            edited_mapping_df
+            .melt(id_vars="File name", value_vars=label_column_names)
+            .query('value != ""')  # drop rows where value is empty
+            .drop_duplicates(subset=["File name", "value"])  # remove duplicates
+            .rename(columns={"value": "Label"})
+        )
+
+        # Group labels by file into a dictionary
+        label_dict = (
+            label_assignments
+            .groupby("File name")["Label"]
+            .apply(list)
+            .to_dict()
+        )
 
         updated_df = assign_labels(template_df, label_dict, st.session_state["all_selected_labels"])
         st.session_state["template_df"] = updated_df

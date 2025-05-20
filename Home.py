@@ -19,6 +19,7 @@ st.set_page_config(
     },
 )
 
+
 common.inject_sidebar_logo()
 
 local_dir = os.path.dirname(__file__)
@@ -72,9 +73,9 @@ Then, follow the steps in the sidebar.
 
 - Step 1: If you have a local metadata file, you can upload it to map to the SDRF file  
 - Step 2: Provide information on potential labels in your sample  
-- Step 3: Fill in the columns that are required for a valid SDRF  
-- Step 4: Fill in columns with additional information to further optimise your SDRF file  
-- Step 5: For atypical experiment types, you can check community suggested columns  
+- Step 3: Annotate columns required by SDRF-Proteomics guidelines 
+- Step 4: Parse through supported ontologies to find terms matching your research
+- Step 5: Community suggested columns for single cell proteomics, immunopeptidomics, structural proteomics etc.
 
 You can download your intermediate file at any given time and return to complete it later.
 """
@@ -99,11 +100,6 @@ if upload_df is not None:
         AgGrid(template_df, gridOptions=gridOptions, height=500, custom_css={"#gridToolBar": {"padding-bottom": "0px !important",}})
 
         st.session_state["template_df"] = template_df
-
-st.markdown("In need of inspiration? Download an example SDRF file:")
-
-with open(os.path.join(local_dir, "example_SDRF.tsv"), 'rb') as f:
-    st.download_button("Download example SDRF", f, file_name="example.sdrf.tsv")
 
 st.subheader("Start here with a completely new SDRF file")
 

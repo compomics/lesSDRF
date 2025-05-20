@@ -10,6 +10,7 @@ from PIL import Image
 import base64
 import io
 import requests
+from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode
 
 st.set_page_config(page_title="SDRF Ontology Mapper", layout="wide")
 st.title("SDRF Ontology Mapper")
@@ -41,10 +42,10 @@ if "template_df" not in st.session_state:
     st.error("Please fill in the template file in the Home page first", icon="🚨")  
     st.stop()
 else:
-    template_df = st.session_state["template_df"] 
+    df = st.session_state["template_df"] 
     with st.container():
         st.write("**This is your current SDRF file.**")
-        st.dataframe(template_df)
+        st.dataframe(df)
 
 
 supported_ontologies = [
@@ -143,30 +144,62 @@ if st.session_state.get("selected_term"):
         child_df = pd.DataFrame()
 
 st.subheader("3. Add this term to SDRF")
+col1, col2, col3 = st.columns(3)
+with col1:
+    add_to_sdrf = st.radio("Do you want to add this term to your SDRF?", ["No", "Yes"], key="add_term")
+    if add_to_sdrf == "Yes":
+        with col2:
+            column_type = st.radio("Select column type", ["characteristic", "comment"], key="col_type")
+            column_name = f"{column_type}[{selected['label']}]"
+            st.write(f"New column name: **{column_name}**")
 
-add_to_sdrf = st.radio("Do you want to add this term to your SDRF?", ["No", "Yes"], key="add_term")
-if add_to_sdrf == "Yes":
-    column_type = st.radio("Select column type", ["characteristic", "comment"], key="col_type")
-    column_name = f"{column_type}[{selected['label']}]"
-    st.write(f"New column name: **{column_name}**")
+            try:
+                has_children = not child_df.empty
+            except NameError:
+                has_children = False
 
-    try:
-        has_children = not child_df.empty
-    except NameError:
-        has_children = False
+        if has_children:
+            with col3:
+                fill_method = st.radio("How would you like to fill the new column?", ["Use from child terms", "Enter free text"], key="fill_method")
+                if len(child_df) == 1:
+                    st.info("Only one child term found — the entire column will be auto-filled with it if selected.")
+        else:
+            st.info("No child terms found for this ontology term.")
+            fill_method = "Enter free text"
+    
 
-    if has_children:
-        fill_method = st.radio("How would you like to fill the new column?", ["Use from child terms", "Enter free text"], key="fill_method")
-        if len(child_df) == 1:
-            st.info("Only one child term found — the entire column will be auto-filled with it if selected.")
-    else:
-        st.info("No child terms found for this ontology term.")
-        fill_method = "Enter free text"
+st.markdown('#')
 
-    if st.button("Add column to SDRF", ):
-        if fill_method == "Use from child terms":
-            template_df = ParsingModule.fill_in_from_list(template_df, column_name, child_df['label'].tolist())
-            update_session_state(template_df)
-        else:  # free text
-            template_df = ParsingModule.fill_in_from_list(template_df, column_name)
-            update_session_state(template_df)
+
+if st.button("Add column to SDRF"):
+    #add column
+    df[column_name] = ""
+    builder = GridOptionsBuilder.from_dataframe(df)
+    builder.configure_grid_options(enableRangeSelection=True, enableFillHandle=True, singleClickEdit=True)
+    if fill_method == "Use from child terms":
+            builder.configure_columns(
+                    column_name,
+                    editable=True,
+                    cellEditor="agSelectCellEditor",
+                    cellEditorParams={"values": child_df['label'].tolist()},
+                    cellStyle={"background-color": "#ffa478"}
+                )
+            st.session_state["template_df"] = df 
+            
+    else:  # free text
+        builder.configure_column(column_name, editable=True,cellEditor="agTextCellEditor",cellStyle={"background-color": "#ffa478"})
+        st.session_state["template_df"] = df 
+        
+    gridOptions = builder.build()
+
+    grid_return = AgGrid(
+        df,
+        gridOptions=gridOptions,
+        update_mode=GridUpdateMode.MANUAL,
+        data_return_mode=DataReturnMode.AS_INPUT,
+        fit_columns_on_grid_load=False
+    )
+    if grid_return["data"] is not None and not grid_return["data"].equals(st.session_state.get("template_df")):
+        # User clicked update manually
+        st.session_state["template_df"] = grid_return["data"]
+        

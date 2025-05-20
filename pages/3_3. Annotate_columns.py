@@ -309,30 +309,25 @@ selected_column = st.selectbox(
 if selected_column:
     st.info(COLUMN_EXPLANATIONS.get(selected_column, f"Please annotate {selected_column}."))
     builder = GridOptionsBuilder.from_dataframe(df)
-    builder.configure_pagination(paginationAutoPageSize=False, paginationPageSize=500)
-    builder.configure_default_column(filterable=True, sortable=True, resizable=True)
-    builder.configure_grid_options(pagination=True)
-    gridOptions = builder.build()
+    builder.configure_grid_options(enableRangeSelection=True, enableFillHandle=True, singleClickEdit=True)
+
     extracted_name = re.search(r"\[(.*?)\]", selected_column)
     extracted_name = extracted_name.group(1) if extracted_name else selected_column
     extracted_name = extracted_name.replace(' ', '_')
 
     if selected_column in FREE_TEXT_COLUMNS:
+        st.write(f"Selected column type: {type(selected_column)}")
         st.write(f"{extracted_name} requires free text input annotation")
-        st.write(selected_column)
-        builder.configure_column(
-            selected_column,
-            editable=True,
-            cellEditor="agTextCellEditor",
-            cellStyle={"background-color": "#ffa478"}
-        )
+        builder.configure_column(selected_column, editable=True,cellEditor="agTextCellEditor",cellStyle={"background-color": "#ffa478"})
 
     elif selected_column in ONTOLOGY_COLUMNS:
         st.write(f"Column '{extracted_name}' requires ontology-based annotation.")
         df, columns_to_edit, num_required = ParsingModule.structure_questions(df, selected_column)
+        #exception for cell type
+        if extracted_name == "cell_type":
+            extracted_name = "cell"
         ontology_elements = data_dict.get(f"all_{extracted_name}_elements", [])
         ontology_tree = data_dict.get(f"{extracted_name}_nodes", {})
-
         selected_terms = ParsingModule.select_ontology_terms(
             selected_column,
             ontology_elements,
@@ -462,7 +457,7 @@ if selected_column:
             if len(selected_terms) == 1:
                 for col in columns_to_edit:
                     df[col] = selected_terms[0]
-                st.success(f"Auto-filled columns {columns_to_edit} with: {selected_terms[0]}")
+                # st.success(f"Auto-filled columns {columns_to_edit} with: {selected_terms[0]}")
             else:
                 builder.configure_columns(
                     columns_to_edit,
